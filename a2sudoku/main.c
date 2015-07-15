@@ -11,10 +11,16 @@
 #include <stdio.h>
 #include <conio.h>
 
+#include "ui.h"
+
 
 int main(void)
 {
-    printf("HELLO, WORLD!\n");
-    cgetc();
+    displayInstructions();
+    
+    while (playGame()) {
+        // Loop back and play another game until playGame() returns false.
+    }
+    
     return 0;
 }

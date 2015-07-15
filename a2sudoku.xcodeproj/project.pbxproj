@@ -17,6 +17,13 @@
 		9DEE9C2E1B569637003E353E /* prodos_template.dsk */ = {isa = PBXFileReference; lastKnownFileType = file; name = prodos_template.dsk; path = make/prodos_template.dsk; sourceTree = "<group>"; };
 		9DEE9C2F1B569637003E353E /* tail.mk */ = {isa = PBXFileReference; lastKnownFileType = text; name = tail.mk; path = make/tail.mk; sourceTree = "<group>"; };
 		9DEE9C301B569638003E353E /* V2Make.scpt */ = {isa = PBXFileReference; lastKnownFileType = file; name = V2Make.scpt; path = make/V2Make.scpt; sourceTree = "<group>"; };
+		9DEE9C361B569717003E353E /* puzzles.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = puzzles.c; sourceTree = "<group>"; };
+		9DEE9C371B569717003E353E /* puzzles.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = puzzles.h; sourceTree = "<group>"; };
+		9DEE9C381B56979C003E353E /* game.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = game.c; sourceTree = "<group>"; };
+		9DEE9C391B56979C003E353E /* game.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = game.h; sourceTree = "<group>"; };
+		9DEE9C3A1B56CFC0003E353E /* ui.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = ui.c; sourceTree = "<group>"; };
+		9DEE9C3B1B56CFC0003E353E /* ui.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ui.h; sourceTree = "<group>"; };
+		9DEE9C3C1B570AED003E353E /* a2e.hi.s */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.asm; path = a2e.hi.s; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
@@ -31,6 +38,13 @@
 			isa = PBXGroup;
 			children = (
 				9DEE9C261B569637003E353E /* main.c */,
+				9DEE9C361B569717003E353E /* puzzles.c */,
+				9DEE9C371B569717003E353E /* puzzles.h */,
+				9DEE9C381B56979C003E353E /* game.c */,
+				9DEE9C391B56979C003E353E /* game.h */,
+				9DEE9C3A1B56CFC0003E353E /* ui.c */,
+				9DEE9C3B1B56CFC0003E353E /* ui.h */,
+				9DEE9C3C1B570AED003E353E /* a2e.hi.s */,
 				9DEE9C271B569637003E353E /* Makefile */,
 				9DEE9C281B569637003E353E /* make */,
 			);
@@ -216,6 +230,7 @@
 				9DEE9C351B569638003E353E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

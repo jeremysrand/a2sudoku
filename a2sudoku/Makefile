@@ -31,12 +31,12 @@ PGM=a2sudoku
 #    MACHINE = apple2enh
 #    MACHINE = apple2enh-dos33
 #    MACHINE = apple2enh-system
-#    MACHINE = apple2enh-loader
+MACHINE = apple2enh-loader
 #    MACHINE = apple2enh-reboot
 
 # Uncomment and set this to your starting address in Apple II memory
 # if necessary:
-#    START_ADDR = 6000
+START_ADDR = 4000
 
 # Set the default CPU to assemble for.  You can change this in the
 # body of a .s file using control commands like ".PC02".  Uncomment
