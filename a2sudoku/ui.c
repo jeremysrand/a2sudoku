@@ -147,7 +147,7 @@ void loadOptions(void)
     if (optionsLoaded)
         return;
 
-    optionsFile = fopen("a2sudokuopts", "rb");
+    optionsFile = fopen("a2sudoku.opts", "rb");
     if (optionsFile != NULL) {
         fread(&gameOptions, sizeof(gameOptions), 1, optionsFile);
         fclose(optionsFile);
@@ -159,7 +159,7 @@ void loadOptions(void)
 void shutdownUI(void)
 {
     FILE *optionsFile;
-    optionsFile = fopen("a2sudokuopts", "wb");
+    optionsFile = fopen("a2sudoku.opts", "wb");
     if (optionsFile != NULL) {
         fwrite(&gameOptions, sizeof(gameOptions), 1, optionsFile);
         fclose(optionsFile);
