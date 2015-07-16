@@ -557,6 +557,10 @@ bool playGame(void)
                     cursorY--;
                     refreshPos(cursorX, cursorY);
                     refreshPos(cursorX, cursorY + 1);
+                } else {
+                    cursorY = BOARD_SIZE - 1;
+                    refreshPos(cursorX, cursorY);
+                    refreshPos(cursorX, 0);
                 }
                 break;
                 
@@ -567,6 +571,10 @@ bool playGame(void)
                     cursorX--;
                     refreshPos(cursorX, cursorY);
                     refreshPos(cursorX + 1, cursorY);
+                } else {
+                    cursorX = BOARD_SIZE - 1;
+                    refreshPos(cursorX, cursorY);
+                    refreshPos(0, cursorY);
                 }
                 break;
                 
@@ -577,6 +585,10 @@ bool playGame(void)
                     cursorX++;
                     refreshPos(cursorX, cursorY);
                     refreshPos(cursorX - 1, cursorY);
+                } else {
+                    cursorX = 0;
+                    refreshPos(cursorX, cursorY);
+                    refreshPos(BOARD_SIZE - 1, cursorY);
                 }
                 break;
                 
@@ -587,6 +599,10 @@ bool playGame(void)
                     cursorY++;
                     refreshPos(cursorX, cursorY);
                     refreshPos(cursorX, cursorY - 1);
+                } else {
+                    cursorY = 0;
+                    refreshPos(cursorX, cursorY);
+                    refreshPos(cursorX, BOARD_SIZE - 1);
                 }
                 break;
                 
