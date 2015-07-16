@@ -33,6 +33,10 @@ extern char a2e_hi;
 #define TEXT_OFFSET_X 12
 #define TEXT_OFFSET_Y 6
 
+#define TEXT_UNDERLINE_OFFSET_X -2
+#define TEXT_UNDERLINE_OFFSET_Y 9
+#define TEXT_UNDERLINE_WIDTH 8
+
 #define TOTAL_WIDTH ((BOARD_SIZE * SQUARE_WIDTH) + \
                     ((BOARD_SIZE + 1) * THIN_LINE_WIDTH) + \
                     (((BOARD_SIZE / SUBSQUARE_SIZE) + 1) * (THICK_LINE_WIDTH - THIN_LINE_WIDTH)))
@@ -48,14 +52,40 @@ extern char a2e_hi;
 #define SCRATCH_HEIGHT 6
 
 
+// Typedefs
+
+typedef struct tOptions {
+    tDifficulty difficulty;
+    bool showInvalid;
+    bool showWrong;
+} tOptions;
+
+
 // Globals;
 
 tPos cursorX, cursorY;
 int screenSquaresX[BOARD_SIZE];
 int screenSquaresY[BOARD_SIZE];
 
+tOptions gameOptions = {
+    DIFFICULTY_EASY,
+    true,
+    true
+};
+
 
 // Implementation
+
+
+char *difficultyString(tDifficulty difficulty)
+{
+    if (difficulty == DIFFICULTY_EASY)
+        return "Easy";
+    else if (difficulty == DIFFICULTY_MEDIUM)
+        return "Medium";
+    
+    return "Hard";
+}
 
 
 void drawGrid(void)
@@ -109,16 +139,118 @@ void initUI(void)
 }
 
 
+void loadOptions(void)
+{
+    static bool optionsLoaded = false;
+    FILE *optionsFile;
+    
+    if (optionsLoaded)
+        return;
+
+    optionsFile = fopen("a2sudokuopts", "rb");
+    if (optionsFile != NULL) {
+        fread(&gameOptions, sizeof(gameOptions), 1, optionsFile);
+        fclose(optionsFile);
+    }
+    optionsLoaded = true;
+}
+
+
 void shutdownUI(void)
 {
+    FILE *optionsFile;
+    optionsFile = fopen("a2sudokuopts", "wb");
+    if (optionsFile != NULL) {
+        fwrite(&gameOptions, sizeof(gameOptions), 1, optionsFile);
+        fclose(optionsFile);
+    }
+    
     // Uninstall drivers
     tgi_uninstall();
+}
+
+
+void textMode(void)
+{
+    asm ("STA %w", 0xc051);
+}
+
+
+void graphicsMode(void)
+{
+    asm ("STA %w", 0xc050);
+}
+
+
+bool setOptions(void)
+{
+    bool shouldUpdate = false;
+    bool keepLooping = true;
+    
+    while (keepLooping) {
+        clrscr();
+        
+        //               1111111111222222222233333333334
+        //      1234567890123456789012345678901234567890
+        printf(
+               "           Apple ][ Sudoku\n"
+               "            By Jeremy Rand\n"
+               "\n"
+               "Options:\n"
+               "    Difficulty          : %s\n"
+               "    Show invalid values : %s\n"
+               "    Show wrong values   : %s\n"
+               "\n"
+               "Press D to change difficulty.\n"
+               "Press I to %sshow invalid values.\n"
+               "Press W to %sshow wrong values.\n"
+               "\n"
+               "Press any other key to return.\n",
+               difficultyString(gameOptions.difficulty),
+               (gameOptions.showInvalid ? "On" : "Off"),
+               (gameOptions.showWrong ? "On" : "Off"),
+               (gameOptions.showInvalid ? "not " : ""),
+               (gameOptions.showWrong ? "not " : ""));
+        
+        switch (cgetc()) {
+            case 'd':
+            case 'D':
+                if (gameOptions.difficulty == DIFFICULTY_HARD)
+                    gameOptions.difficulty = DIFFICULTY_EASY;
+                else
+                    gameOptions.difficulty++;
+                break;
+                
+            case 'i':
+            case 'I':
+                gameOptions.showInvalid = !gameOptions.showInvalid;
+                shouldUpdate = true;
+                break;
+                
+            case 'w':
+            case 'W':
+                gameOptions.showWrong = !gameOptions.showWrong;
+                shouldUpdate = true;
+                break;
+                
+            default:
+                keepLooping = false;
+                break;
+        }
+    }
+    
+    clrscr();
+    
+    return shouldUpdate;
 }
 
 
 void displayInstructions(void)
 {
     int seed = 0;
+    char ch;
+    
+    loadOptions();
     
     clrscr();
     
@@ -135,24 +267,34 @@ void displayInstructions(void)
            "to enter a value.  Press a number key\n"
            "while holding shift or open apple to\n"
            "toggle a scratch value.  Press 0 to\n"
-           "clear a square.\n"
+           "clear a square.  Play ends when the\n"
+           "puzzle is solved.\n"
            "\n"
-           "Play ends when the puzzle is solved.\n"
+           "    Difficulty          : %s\n"
+           "    Show invalid values : %s\n"
+           "    Show wrong values   : %s\n"
            "\n"
            "Press escape or Q to quit at any time.\n"
+           "Press O to change options.\n"
            "Press R to start a new game.\n"
            "Press H to see this info again.\n"
            "\n"
-           "\n"
-           "\n"
-           "       Press any key to start");
+           " Press O to change options or any other\n"
+           "              key to start",
+           difficultyString(gameOptions.difficulty),
+           (gameOptions.showInvalid ? "On" : "Off"),
+           (gameOptions.showWrong ? "On" : "Off"));
     
     // The amount of time the user waits to read the in
     while (!kbhit())
         seed++;
     
-    cgetc();
+    ch = cgetc();
     srand(seed);
+    
+    if ((ch == 'o') ||
+        (ch == 'O'))
+        setOptions();
     
     clrscr();
 }
@@ -295,7 +437,7 @@ void drawScratch(tPos x, tPos y, tScratchValues scratch)
 }
 
 
-void updatePos(tPos x, tPos y, tSquareVal val, tScratchValues scratch, bool correct, bool invalid)
+void updatePos(tPos x, tPos y, tSquareVal val, tScratchValues scratch, bool correct, bool invalid, bool knownAtStart)
 {
     int screenX = screenSquaresX[x];
     int screenY = screenSquaresY[y];
@@ -313,10 +455,19 @@ void updatePos(tPos x, tPos y, tSquareVal val, tScratchValues scratch, bool corr
         
         tgi_outtextxy(screenX + TEXT_OFFSET_X, screenY + TEXT_OFFSET_Y, buffer);
         
-        if (!correct)
+        if (knownAtStart) {
+            tgi_line(screenX + TEXT_OFFSET_X + TEXT_UNDERLINE_OFFSET_X,
+                     screenY + TEXT_OFFSET_Y + TEXT_UNDERLINE_OFFSET_Y,
+                     screenX + TEXT_OFFSET_X + TEXT_UNDERLINE_OFFSET_X + TEXT_UNDERLINE_WIDTH,
+                     screenY + TEXT_OFFSET_Y + TEXT_UNDERLINE_OFFSET_Y);
+        }
+        
+        if ((gameOptions.showWrong) &&
+            (!correct))
             tgi_line(screenX, edgeY, edgeX, screenY);
         
-        if (invalid)
+        if ((gameOptions.showInvalid) &&
+            (invalid))
             tgi_line(screenX, edgeY, edgeX, screenY);
     } else if (scratch != 0) {
         drawScratch(x, y, scratch);
@@ -360,11 +511,12 @@ bool playGame(void)
     
     drawGrid();
     
-    startGame(updatePos);
+    startGame(DIFFICULTY_EASY, updatePos);
     
     while (true) {
         char ch;
         bool shouldNotBeep = true;
+        bool shouldRefresh = false;
         
         if (isPuzzleSolved()) {
             youWon();
@@ -376,9 +528,16 @@ bool playGame(void)
         switch (ch) {
             case 'h':
             case 'H':
+                textMode();
                 displayInstructions();
-                clrscr();
-                refreshAllPos();
+                graphicsMode();
+                break;
+                
+            case 'o':
+            case 'O':
+                textMode();
+                shouldRefresh = setOptions();
+                graphicsMode();
                 break;
                 
             case 'r':
@@ -492,6 +651,8 @@ bool playGame(void)
         if (!shouldNotBeep) {
             printf("\007");
         }
+        if (shouldRefresh)
+            refreshAllPos();
     }
     
     return false;

@@ -39,17 +39,25 @@ typedef struct tPuzzle {
 
 // Forward declarations
 
-tPuzzle puzzles[];
+tPuzzle easyPuzzles[];
+tPuzzle mediumPuzzles[];
+tPuzzle hardPuzzles[];
 
-tPuzzleNum numPuzzles(void);
+tPuzzleNum numPuzzles(tDifficulty difficulty);
 
 
 // Implementation
 
-tPuzzle *getRandomPuzzle(void)
+tPuzzle *getRandomPuzzle(tDifficulty difficulty)
 {
-    tPuzzleNum randomPuzzleNum = (rand() % numPuzzles());
-    return &(puzzles[randomPuzzleNum]);
+    tPuzzleNum randomPuzzleNum = (rand() % numPuzzles(difficulty));
+    
+    if (difficulty == DIFFICULTY_EASY)
+        return &(easyPuzzles[randomPuzzleNum]);
+    else if (difficulty == DIFFICULTY_MEDIUM)
+        return &(mediumPuzzles[randomPuzzleNum]);
+    
+    return &(hardPuzzles[randomPuzzleNum]);
 }
 
 
@@ -66,41 +74,9 @@ bool checkValueAtPos(tPuzzle *puzzle, tSquareVal val, tPos x, tPos y)
 }
 
 
-void printPuzzle(tPuzzle *puzzle, bool solution)
-{
-    tPos x, y;
-    
-    for (y = 0; y < BOARD_SIZE; y++) {
-        if ((y % SUBSQUARE_SIZE) == 0) {
-            printf("\n");
-        }
-        
-        for (x = 0; x < BOARD_SIZE; x++) {
-            char displayChar = ' ';
-            tSquareVal squareVal;
-            
-            if ((x % SUBSQUARE_SIZE) == 0) {
-                printf("  ");
-            }
-            if (solution) {
-                squareVal = PUZZLE_SOLVED_VAL(PUZZLE_SQUARE(puzzle, x, y));
-            } else {
-                squareVal = PUZZLE_START_VAL(PUZZLE_SQUARE(puzzle, x, y));
-            }
-            
-            if (squareVal != EMPTY_SQUARE)
-                displayChar = '0' + squareVal;
-            
-            printf(" %c ", displayChar);
-        }
-        printf("\n");
-    }
-}
-
-
 // Puzzle definitions
 
-tPuzzle puzzles[] = {
+tPuzzle easyPuzzles[] = {
     {
         {
             PVAL(4),PVAL(3),PVAL(5),  SVAL(2),SVAL(6),PVAL(9),  SVAL(7),PVAL(8),SVAL(1),
@@ -119,7 +95,50 @@ tPuzzle puzzles[] = {
 };
 
 
-tPuzzleNum numPuzzles(void)
+tPuzzle mediumPuzzles[] = {
+    {
+        {
+            PVAL(4),PVAL(3),PVAL(5),  SVAL(2),SVAL(6),PVAL(9),  SVAL(7),PVAL(8),SVAL(1),
+            SVAL(6),SVAL(8),PVAL(2),  PVAL(5),SVAL(7),PVAL(1),  PVAL(4),SVAL(9),PVAL(3),
+            SVAL(1),SVAL(9),PVAL(7),  PVAL(8),PVAL(3),SVAL(4),  SVAL(5),PVAL(6),PVAL(2),
+            
+            SVAL(8),SVAL(2),PVAL(6),  SVAL(1),PVAL(9),PVAL(5),  PVAL(3),SVAL(4),PVAL(7),
+            PVAL(3),PVAL(7),SVAL(4),  SVAL(6),PVAL(8),SVAL(2),  SVAL(9),PVAL(1),PVAL(5),
+            PVAL(9),SVAL(5),PVAL(1),  PVAL(7),PVAL(4),SVAL(3),  PVAL(6),SVAL(2),SVAL(8),
+            
+            PVAL(5),PVAL(1),SVAL(9),  SVAL(3),PVAL(2),PVAL(6),  PVAL(8),SVAL(7),SVAL(4),
+            PVAL(2),SVAL(4),PVAL(8),  PVAL(9),SVAL(5),PVAL(7),  PVAL(1),SVAL(3),SVAL(6),
+            SVAL(7),PVAL(6),SVAL(3),  PVAL(4),SVAL(1),SVAL(8),  PVAL(2),PVAL(5),PVAL(9)
+        }
+    },
+};
+
+
+tPuzzle hardPuzzles[] = {
+    {
+        {
+            PVAL(4),PVAL(3),PVAL(5),  SVAL(2),SVAL(6),PVAL(9),  SVAL(7),PVAL(8),SVAL(1),
+            SVAL(6),SVAL(8),PVAL(2),  PVAL(5),SVAL(7),PVAL(1),  PVAL(4),SVAL(9),PVAL(3),
+            SVAL(1),SVAL(9),PVAL(7),  PVAL(8),PVAL(3),SVAL(4),  SVAL(5),PVAL(6),PVAL(2),
+            
+            SVAL(8),SVAL(2),PVAL(6),  SVAL(1),PVAL(9),PVAL(5),  PVAL(3),SVAL(4),PVAL(7),
+            PVAL(3),PVAL(7),SVAL(4),  SVAL(6),PVAL(8),SVAL(2),  SVAL(9),PVAL(1),PVAL(5),
+            PVAL(9),SVAL(5),PVAL(1),  PVAL(7),PVAL(4),SVAL(3),  PVAL(6),SVAL(2),SVAL(8),
+            
+            PVAL(5),PVAL(1),SVAL(9),  SVAL(3),PVAL(2),PVAL(6),  PVAL(8),SVAL(7),SVAL(4),
+            PVAL(2),SVAL(4),PVAL(8),  PVAL(9),SVAL(5),PVAL(7),  PVAL(1),SVAL(3),SVAL(6),
+            SVAL(7),PVAL(6),SVAL(3),  PVAL(4),SVAL(1),SVAL(8),  PVAL(2),PVAL(5),PVAL(9)
+        }
+    },
+};
+
+
+tPuzzleNum numPuzzles(tDifficulty difficulty)
 {
-    return sizeof(puzzles) / sizeof(puzzles[0]);
+    if (difficulty == DIFFICULTY_EASY)
+        return sizeof(easyPuzzles) / sizeof(easyPuzzles[0]);
+    else if (difficulty == DIFFICULTY_MEDIUM)
+        return sizeof(mediumPuzzles) / sizeof(mediumPuzzles[0]);
+    
+    return sizeof(hardPuzzles) / sizeof(hardPuzzles[0]);
 }

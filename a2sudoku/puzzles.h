@@ -25,6 +25,10 @@
 
 #define EMPTY_SQUARE 0
 
+#define DIFFICULTY_EASY 0
+#define DIFFICULTY_MEDIUM 1
+#define DIFFICULTY_HARD 2
+
 
 // Forward declarations
 
@@ -33,19 +37,18 @@ struct tPuzzle;
 
 // Typedefs
 
+typedef uint8_t tDifficulty;
 typedef uint8_t tSquareVal;
 typedef uint8_t tPos;
 
 
 // API
 
-extern struct tPuzzle *getRandomPuzzle(void);
+extern struct tPuzzle *getRandomPuzzle(tDifficulty difficulty);
 
 extern tSquareVal getStartValueAtPos(struct tPuzzle *puzzle, tPos x, tPos y);
 
 extern bool checkValueAtPos(struct tPuzzle *puzzle, tSquareVal val, tPos x, tPos y);
-
-extern void printPuzzle(struct tPuzzle *puzzle, bool solution);
 
 
 #endif /* defined(__a2sudoku__puzzles__) */

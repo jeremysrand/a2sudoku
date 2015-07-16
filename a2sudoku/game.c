@@ -50,15 +50,15 @@ void refreshPos(tPos x, tPos y)
         return;
     
     square = &(SQUARE_XY(x, y));
-    theGame.callback(x, y, square->value, square->scratchValues, square->correct, square->invalid);
+    theGame.callback(x, y, square->value, square->scratchValues, square->correct, square->invalid, square->knownAtStart);
 }
 
 
-void startGame(tUpdatePosCallback callback)
+void startGame(tDifficulty difficulty, tUpdatePosCallback callback)
 {
     tPos x, y;
     
-    theGame.puzzle = getRandomPuzzle();
+    theGame.puzzle = getRandomPuzzle(difficulty);
     theGame.callback = callback;
     memset(&(theGame.squares), 0, sizeof(theGame.squares));
     
@@ -157,8 +157,12 @@ void refreshInvalid(tPos col, tPos row)
     
     for (y = 0; y < BOARD_SIZE; y++) {
         for (x = 0; x < BOARD_SIZE; x++) {
-            newInvalid = isSquareInvalid(x, y);
             square = &(SQUARE_XY(x, y));
+            
+            if (square->knownAtStart)
+                continue;
+            
+            newInvalid = isSquareInvalid(x, y);
             
             if (newInvalid != square->invalid) {
                 square->invalid = newInvalid;

@@ -21,12 +21,12 @@
 // Typedefs
 
 typedef uint16_t tScratchValues;
-typedef void (*tUpdatePosCallback)(tPos x, tPos y, tSquareVal val, tScratchValues scratch, bool correct, bool invalid);
+typedef void (*tUpdatePosCallback)(tPos x, tPos y, tSquareVal val, tScratchValues scratch, bool correct, bool invalid, bool knownAtStart);
 
 
 // API
 
-extern void startGame(tUpdatePosCallback callback);
+extern void startGame(tDifficulty difficulty, tUpdatePosCallback callback);
 
 extern void refreshAllPos(void);
 
