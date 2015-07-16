@@ -24,6 +24,11 @@
 		9DEE9C3A1B56CFC0003E353E /* ui.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = ui.c; sourceTree = "<group>"; };
 		9DEE9C3B1B56CFC0003E353E /* ui.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ui.h; sourceTree = "<group>"; };
 		9DEE9C3C1B570AED003E353E /* a2e.hi.s */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.asm; path = a2e.hi.s; sourceTree = "<group>"; };
+		9DEE9C3D1B582C3A003E353E /* generateSudoku.pl */ = {isa = PBXFileReference; lastKnownFileType = text.script.perl; path = generateSudoku.pl; sourceTree = "<group>"; };
+		9DEE9C3E1B5837B0003E353E /* easy.puzzles */ = {isa = PBXFileReference; lastKnownFileType = file; path = easy.puzzles; sourceTree = "<group>"; };
+		9DEE9C3F1B5837B0003E353E /* hard.puzzles */ = {isa = PBXFileReference; lastKnownFileType = file; path = hard.puzzles; sourceTree = "<group>"; };
+		9DEE9C401B5837B0003E353E /* medium.puzzles */ = {isa = PBXFileReference; lastKnownFileType = file; path = medium.puzzles; sourceTree = "<group>"; };
+		9DEE9C411B583FE4003E353E /* puzzles.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = puzzles.txt; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
@@ -45,6 +50,7 @@
 				9DEE9C3A1B56CFC0003E353E /* ui.c */,
 				9DEE9C3B1B56CFC0003E353E /* ui.h */,
 				9DEE9C3C1B570AED003E353E /* a2e.hi.s */,
+				9DEE9C421B583FEF003E353E /* Puzzles */,
 				9DEE9C271B569637003E353E /* Makefile */,
 				9DEE9C281B569637003E353E /* make */,
 			);
@@ -64,6 +70,18 @@
 				9DEE9C301B569638003E353E /* V2Make.scpt */,
 			);
 			name = make;
+			sourceTree = "<group>";
+		};
+		9DEE9C421B583FEF003E353E /* Puzzles */ = {
+			isa = PBXGroup;
+			children = (
+				9DEE9C411B583FE4003E353E /* puzzles.txt */,
+				9DEE9C3E1B5837B0003E353E /* easy.puzzles */,
+				9DEE9C3F1B5837B0003E353E /* hard.puzzles */,
+				9DEE9C401B5837B0003E353E /* medium.puzzles */,
+				9DEE9C3D1B582C3A003E353E /* generateSudoku.pl */,
+			);
+			name = Puzzles;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

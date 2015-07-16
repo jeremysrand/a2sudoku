@@ -156,7 +156,7 @@ void loadOptions(void)
 }
 
 
-void shutdownUI(void)
+void saveOptions(void)
 {
     FILE *optionsFile;
     optionsFile = fopen("a2sudoku.opts", "wb");
@@ -164,7 +164,11 @@ void shutdownUI(void)
         fwrite(&gameOptions, sizeof(gameOptions), 1, optionsFile);
         fclose(optionsFile);
     }
-    
+}
+
+
+void shutdownUI(void)
+{
     // Uninstall drivers
     tgi_uninstall();
 }
@@ -186,6 +190,7 @@ bool setOptions(void)
 {
     bool shouldUpdate = false;
     bool keepLooping = true;
+    bool shouldSave = false;
     
     while (keepLooping) {
         clrscr();
@@ -219,17 +224,20 @@ bool setOptions(void)
                     gameOptions.difficulty = DIFFICULTY_EASY;
                 else
                     gameOptions.difficulty++;
+                shouldSave = true;
                 break;
                 
             case 'i':
             case 'I':
                 gameOptions.showInvalid = !gameOptions.showInvalid;
+                shouldSave = true;
                 shouldUpdate = true;
                 break;
                 
             case 'w':
             case 'W':
                 gameOptions.showWrong = !gameOptions.showWrong;
+                shouldSave = true;
                 shouldUpdate = true;
                 break;
                 
@@ -237,6 +245,11 @@ bool setOptions(void)
                 keepLooping = false;
                 break;
         }
+    }
+    
+    if (shouldSave) {
+        printf("\n\nSaving options...");
+        saveOptions();
     }
     
     clrscr();
@@ -506,12 +519,19 @@ bool playGame(void)
 {
     initUI();
     
+    clrscr();
+    printf("\n\nLoading your puzzle for you\n    Please be patient...");
+    
+    textMode();
+    
     cursorX = 0;
     cursorY = 0;
     
     drawGrid();
     
-    startGame(DIFFICULTY_EASY, updatePos);
+    startGame(gameOptions.difficulty, updatePos);
+    
+    graphicsMode();
     
     while (true) {
         char ch;

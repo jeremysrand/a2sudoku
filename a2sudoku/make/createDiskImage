@@ -206,3 +206,7 @@ then
 else
     "$JAVA" -jar "$APPLECOMMANDER" -p "$DISKIMAGE" "$TARGETFILE" $FILETYPE < "$PROGRAM"
 fi
+
+"$JAVA" -jar "$APPLECOMMANDER" -p "$DISKIMAGE" "easy.puzzles" "bin" < "easy.puzzles"
+"$JAVA" -jar "$APPLECOMMANDER" -p "$DISKIMAGE" "hard.puzzles" "bin" < "hard.puzzles"
+"$JAVA" -jar "$APPLECOMMANDER" -p "$DISKIMAGE" "medium.puzzles" "bin" < "medium.puzzles"

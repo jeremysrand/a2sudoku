@@ -51,12 +51,12 @@ sub getKnown
         for ($j = 0; $j < 3; $j++) {
             $line = <>;
             chomp $line;
-            $line =~ s/_/P/g;
-            $line =~ s/[1-9]/S/g;
             push(@result, split(/ +/, $line));
         }
         $line = <>;
     }
+    
+    die "Unexpected known count, " . $#result . " at $." if ($#result != 80);
 
     return @result;
 }
@@ -77,6 +77,8 @@ sub getSolution
         }
         $line = <>;
     }
+    
+    die "Unexpected solution count, " . $#result . " at $." if ($#result != 80);
 
     return @result;
 }
@@ -85,34 +87,24 @@ sub getSolution
 sub generatePuzzle
 {
     my $i;
-    my $result = 
-"    {\n" .
-"        {\n" .
-"            ";
+    my $result;
 
     for ($i = 0; $i <= $#known; $i++) {
-        $result .= $known[$i] . "VAL(" . $solution[$i] . "),";
-
-        if ($i == $#known) {
-            $result .= "\n        }\n    },\n";
-        } elsif (($i % 27) == 26) {
-            $result .= "\n\n            ";
-        } elsif (($i % 9) == 8) {
-            $result .= "\n            ";
-        } elsif (($i % 3) == 2) {
-            $result .= " ";
+        if ($known[$i] ne "_") {
+            $solution[$i] += 16;
         }
     }
 
+    $result = pack("C81", @solution);
+    
+    if (length($result) != 81) {
+        die "Unexpected pack length, " . length($result);
+    }
+    
     return $result;
 }
 
 
-# Turns out I run out of memory pretty quickly.  I should look at
-# putting the puzzles on disk and loading them rather than building
-# them in.  For now, enforce a limit to make sure we don't exceed
-# limits.
-my $limit = 50;
 while (<>) {
     chomp;
     if (/^PUZZLE:/) {
@@ -123,19 +115,26 @@ while (<>) {
         @solution = &getSolution;
     }
 
-    if ((/^RATING: 0/) &&
-        ($#easy < $limit)) {
+    if (/^RATING: 0/) {
         push(@easy, &generatePuzzle);
-    } elsif ((/^RATING: 1/) &&
-             ($#medium < $limit)) {
+    } elsif (/^RATING: 1/) {
         push(@medium, &generatePuzzle);
-    } elsif ((/^RATING: /) && 
-             ($#hard < $limit)) {
+    } elsif (/^RATING: /) {
         push(@hard, &generatePuzzle);
     }
 }
 
+open(FILE, ">easy.puzzles") || die "Unable to open easy.puzzles";
+print FILE pack("v", $#easy + 1);
+print FILE join("", @easy);
+close (FILE);
 
-print "tPuzzle easyPuzzles[] = {\n" . join("", @easy) . "};\n\n\n";
-print "tPuzzle mediumPuzzles[] = {\n" . join("", @medium) . "};\n\n\n";
-print "tPuzzle hardPuzzles[] = {\n" . join("", @hard) . "};\n\n\n";
+open(FILE, ">medium.puzzles") || die "Unable to open medium.puzzles";
+print FILE pack("v", $#medium + 1);
+print FILE join("", @medium);
+close (FILE);
+
+open(FILE, ">hard.puzzles") || die "Unable to open hard.puzzles";
+print FILE pack("v", $#hard + 1);
+print FILE join("", @hard);
+close (FILE);
