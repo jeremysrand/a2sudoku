@@ -28,10 +28,19 @@ typedef struct tGameSquare {
 } tGameSquare;
 
 
+typedef struct tUndoMove {
+    tGameSquare oldSquare;
+    tPos x;
+    tPos y;
+    bool isValid;
+} tUndoMove;
+
+
 typedef struct tGame {
     tGameSquare squares[BOARD_SIZE * BOARD_SIZE];
     struct tPuzzle *puzzle;
     tUpdatePosCallback callback;
+    tUndoMove undo;
 } tGame;
 
 
@@ -149,7 +158,7 @@ bool isSquareInvalid(tPos col, tPos row)
 }
 
 
-void refreshInvalid(tPos col, tPos row)
+void refreshInvalid(void)
 {
     tPos x, y;
     tGameSquare *square;
@@ -184,6 +193,11 @@ bool setValueAtPos(tPos x, tPos y, tSquareVal val)
         return false;
     }
     
+    theGame.undo.isValid = true;
+    memcpy(&(theGame.undo.oldSquare), square, sizeof(*square));
+    theGame.undo.x = x;
+    theGame.undo.y = y;
+    
     if (square->value != val) {
         square->value = val;
         update = true;
@@ -207,7 +221,7 @@ bool setValueAtPos(tPos x, tPos y, tSquareVal val)
         refreshPos(x,y);
     
     if (checkValues)
-        refreshInvalid(x, y);
+        refreshInvalid();
     
     return true;
 }
@@ -220,8 +234,63 @@ bool toggleScratchValueAtPos(tPos x, tPos y, tSquareVal val)
     if (square->knownAtStart) {
         return false;
     }
+    
+    theGame.undo.isValid = true;
+    memcpy(&(theGame.undo.oldSquare), square, sizeof(*square));
+    theGame.undo.x = x;
+    theGame.undo.y = y;
+    
     square->scratchValues ^= (0x1 << val);
     refreshPos(x, y);
+    
+    return true;
+}
+
+
+bool undoLastMove(void)
+{
+    tGameSquare *square;
+    bool update = false;
+    bool checkValues = false;
+    tPos x = theGame.undo.x;
+    tPos y = theGame.undo.y;
+    bool correct;
+    
+    if (!theGame.undo.isValid)
+        return false;
+    
+    square = &(SQUARE_XY(x, y));
+    
+    if (square->knownAtStart) {
+        return false;
+    }
+    
+    theGame.undo.isValid = false;
+    
+    if (square->value != theGame.undo.oldSquare.value) {
+        square->value = theGame.undo.oldSquare.value;
+        update = true;
+        checkValues = true;
+    }
+    
+    if (square->scratchValues != theGame.undo.oldSquare.scratchValues) {
+        square->scratchValues = theGame.undo.oldSquare.scratchValues;
+        update = true;
+    }
+    
+    if (checkValues) {
+        correct = checkValueAtPos(theGame.puzzle, square->value, x, y);
+        if (square->correct != correct) {
+            square->correct = correct;
+            update = true;
+        }
+    }
+    
+    if (update)
+        refreshPos(x,y);
+    
+    if (checkValues)
+        refreshInvalid();
     
     return true;
 }

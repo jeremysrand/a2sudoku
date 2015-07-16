@@ -278,9 +278,9 @@ void displayInstructions(void)
            "Press O to change options.\n"
            "Press R to start a new game.\n"
            "Press H to see this info again.\n"
-           "\n"
-           " Press O to change options or any other\n"
-           "              key to start",
+           "Press U to undo your last move.\n"
+           "  Press O to change options now or any\n"
+           "           other key to start",
            difficultyString(gameOptions.difficulty),
            (gameOptions.showInvalid ? "On" : "Off"),
            (gameOptions.showWrong ? "On" : "Off"));
@@ -662,6 +662,15 @@ bool playGame(void)
             case CH_F9:
             case '(':
                 shouldNotBeep = toggleScratchValueAtPos(cursorX, cursorY, 9);
+                break;
+                
+            case 'u':
+            case 'U':
+                shouldNotBeep = undoLastMove();
+                break;
+                
+            default:
+                shouldNotBeep = false;
                 break;
         }
         if (!shouldNotBeep) {

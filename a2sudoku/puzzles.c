@@ -842,81 +842,6 @@ tPuzzle easyPuzzles[] = {
             PVAL(9),SVAL(8),PVAL(1), SVAL(6),PVAL(5),PVAL(2), SVAL(3),SVAL(4),PVAL(7),
         }
     },
-    {
-        {
-            PVAL(9),SVAL(1),PVAL(8), SVAL(3),PVAL(6),PVAL(4), PVAL(5),PVAL(2),PVAL(7),
-            PVAL(3),PVAL(2),SVAL(5), PVAL(9),PVAL(8),PVAL(7), PVAL(6),SVAL(4),PVAL(1),
-            PVAL(7),SVAL(4),PVAL(6), SVAL(1),PVAL(5),SVAL(2), PVAL(9),SVAL(8),PVAL(3),
-            
-            PVAL(6),PVAL(5),PVAL(2), SVAL(4),PVAL(3),SVAL(8), PVAL(1),PVAL(7),PVAL(9),
-            PVAL(4),PVAL(9),SVAL(7), PVAL(6),PVAL(2),PVAL(1), PVAL(8),PVAL(3),SVAL(5),
-            PVAL(1),PVAL(8),PVAL(3), PVAL(5),SVAL(7),SVAL(9), PVAL(4),PVAL(6),SVAL(2),
-            
-            PVAL(2),PVAL(6),SVAL(9), PVAL(8),PVAL(1),SVAL(3), SVAL(7),PVAL(5),PVAL(4),
-            PVAL(8),PVAL(7),PVAL(4), SVAL(2),PVAL(9),PVAL(5), PVAL(3),PVAL(1),SVAL(6),
-            SVAL(5),PVAL(3),SVAL(1), PVAL(7),SVAL(4),PVAL(6), PVAL(2),PVAL(9),PVAL(8),
-        }
-    },
-    {
-        {
-            PVAL(6),PVAL(7),PVAL(3), PVAL(8),PVAL(4),PVAL(2), PVAL(1),SVAL(9),PVAL(5),
-            SVAL(9),PVAL(1),PVAL(5), SVAL(7),PVAL(3),PVAL(6), SVAL(4),PVAL(8),SVAL(2),
-            PVAL(4),PVAL(2),PVAL(8), PVAL(1),PVAL(9),SVAL(5), SVAL(3),PVAL(6),PVAL(7),
-            
-            PVAL(3),PVAL(4),PVAL(2), PVAL(9),PVAL(8),PVAL(7), SVAL(6),SVAL(5),PVAL(1),
-            SVAL(8),PVAL(6),SVAL(7), SVAL(5),PVAL(1),PVAL(3), PVAL(9),SVAL(2),PVAL(4),
-            PVAL(5),SVAL(9),SVAL(1), PVAL(2),PVAL(6),SVAL(4), PVAL(8),SVAL(7),PVAL(3),
-            
-            PVAL(1),PVAL(5),PVAL(6), PVAL(3),PVAL(2),PVAL(9), PVAL(7),PVAL(4),PVAL(8),
-            PVAL(2),SVAL(3),PVAL(9), PVAL(4),PVAL(7),SVAL(8), PVAL(5),SVAL(1),PVAL(6),
-            SVAL(7),SVAL(8),PVAL(4), SVAL(6),SVAL(5),PVAL(1), PVAL(2),PVAL(3),PVAL(9),
-        }
-    },
-    {
-        {
-            PVAL(9),PVAL(8),SVAL(6), PVAL(4),SVAL(7),PVAL(5), PVAL(1),PVAL(2),PVAL(3),
-            PVAL(5),PVAL(1),PVAL(7), SVAL(3),PVAL(6),SVAL(2), SVAL(4),SVAL(9),SVAL(8),
-            PVAL(4),PVAL(2),PVAL(3), PVAL(1),PVAL(8),PVAL(9), PVAL(6),PVAL(7),SVAL(5),
-            
-            PVAL(2),PVAL(9),SVAL(5), PVAL(6),PVAL(1),PVAL(8), PVAL(3),PVAL(4),PVAL(7),
-            PVAL(6),PVAL(4),PVAL(1), SVAL(5),SVAL(3),PVAL(7), PVAL(2),PVAL(8),SVAL(9),
-            PVAL(7),PVAL(3),PVAL(8), PVAL(2),PVAL(9),PVAL(4), PVAL(5),SVAL(1),SVAL(6),
-            
-            SVAL(8),PVAL(6),PVAL(2), PVAL(9),PVAL(5),SVAL(1), SVAL(7),PVAL(3),SVAL(4),
-            SVAL(3),PVAL(7),SVAL(4), SVAL(8),PVAL(2),PVAL(6), PVAL(9),PVAL(5),PVAL(1),
-            PVAL(1),SVAL(5),SVAL(9), PVAL(7),PVAL(4),PVAL(3), PVAL(8),PVAL(6),PVAL(2),
-        }
-    },
-    {
-        {
-            SVAL(7),PVAL(8),SVAL(9), SVAL(2),PVAL(3),PVAL(1), PVAL(6),PVAL(5),PVAL(4),
-            PVAL(1),PVAL(3),PVAL(4), PVAL(5),PVAL(6),PVAL(7), PVAL(2),PVAL(9),SVAL(8),
-            SVAL(2),SVAL(5),PVAL(6), SVAL(4),PVAL(9),PVAL(8), PVAL(1),SVAL(7),SVAL(3),
-            
-            SVAL(4),PVAL(1),PVAL(3), PVAL(6),SVAL(8),PVAL(5), PVAL(9),SVAL(2),PVAL(7),
-            PVAL(5),SVAL(7),PVAL(2), PVAL(3),SVAL(4),PVAL(9), PVAL(8),PVAL(6),PVAL(1),
-            PVAL(9),SVAL(6),SVAL(8), PVAL(1),PVAL(7),PVAL(2), PVAL(3),SVAL(4),PVAL(5),
-            
-            PVAL(8),PVAL(2),PVAL(7), PVAL(9),PVAL(5),SVAL(3), PVAL(4),PVAL(1),SVAL(6),
-            SVAL(3),SVAL(4),PVAL(1), SVAL(7),SVAL(2),SVAL(6), SVAL(5),PVAL(8),PVAL(9),
-            PVAL(6),PVAL(9),PVAL(5), PVAL(8),PVAL(1),PVAL(4), PVAL(7),PVAL(3),PVAL(2),
-        }
-    },
-    {
-        {
-            PVAL(1),PVAL(2),PVAL(4), SVAL(3),PVAL(9),PVAL(5), SVAL(6),PVAL(7),SVAL(8),
-            PVAL(7),PVAL(8),PVAL(9), PVAL(6),SVAL(4),PVAL(2), PVAL(3),PVAL(5),PVAL(1),
-            PVAL(3),PVAL(6),SVAL(5), PVAL(7),SVAL(1),SVAL(8), PVAL(2),PVAL(4),PVAL(9),
-            
-            PVAL(4),PVAL(9),SVAL(1), SVAL(5),SVAL(2),PVAL(6), PVAL(8),SVAL(3),PVAL(7),
-            SVAL(5),PVAL(7),PVAL(8), PVAL(1),PVAL(3),SVAL(9), PVAL(4),PVAL(6),PVAL(2),
-            PVAL(6),SVAL(3),PVAL(2), PVAL(4),PVAL(8),PVAL(7), SVAL(9),SVAL(1),PVAL(5),
-            
-            SVAL(8),PVAL(4),SVAL(6), PVAL(9),PVAL(5),PVAL(1), SVAL(7),SVAL(2),PVAL(3),
-            PVAL(9),PVAL(1),PVAL(3), PVAL(2),PVAL(7),SVAL(4), PVAL(5),PVAL(8),PVAL(6),
-            PVAL(2),PVAL(5),PVAL(7), PVAL(8),PVAL(6),PVAL(3), SVAL(1),SVAL(9),PVAL(4),
-        }
-    },
 };
 
 
@@ -1686,81 +1611,6 @@ tPuzzle mediumPuzzles[] = {
             PVAL(6),PVAL(9),PVAL(3), PVAL(5),PVAL(7),PVAL(4), PVAL(1),PVAL(8),SVAL(2),
         }
     },
-    {
-        {
-            PVAL(3),SVAL(8),PVAL(4), SVAL(9),PVAL(2),PVAL(5), PVAL(6),PVAL(7),SVAL(1),
-            SVAL(2),PVAL(6),PVAL(1), SVAL(8),PVAL(3),PVAL(7), PVAL(4),PVAL(9),PVAL(5),
-            SVAL(7),PVAL(9),SVAL(5), PVAL(6),PVAL(1),SVAL(4), PVAL(8),SVAL(3),PVAL(2),
-            
-            SVAL(5),PVAL(1),PVAL(7), PVAL(2),PVAL(4),PVAL(3), SVAL(9),PVAL(6),SVAL(8),
-            SVAL(6),SVAL(2),PVAL(3), PVAL(1),PVAL(8),PVAL(9), PVAL(5),PVAL(4),SVAL(7),
-            PVAL(9),PVAL(4),PVAL(8), PVAL(7),SVAL(5),SVAL(6), PVAL(1),PVAL(2),PVAL(3),
-            
-            PVAL(1),PVAL(3),PVAL(9), PVAL(4),SVAL(7),PVAL(8), PVAL(2),SVAL(5),PVAL(6),
-            SVAL(8),PVAL(7),SVAL(6), SVAL(5),PVAL(9),PVAL(2), PVAL(3),SVAL(1),PVAL(4),
-            PVAL(4),PVAL(5),PVAL(2), PVAL(3),PVAL(6),PVAL(1), PVAL(7),PVAL(8),PVAL(9),
-        }
-    },
-    {
-        {
-            PVAL(9),PVAL(4),PVAL(7), PVAL(5),PVAL(3),SVAL(8), PVAL(1),PVAL(6),PVAL(2),
-            PVAL(6),PVAL(5),PVAL(8), SVAL(2),PVAL(7),PVAL(1), PVAL(3),SVAL(4),PVAL(9),
-            PVAL(1),SVAL(3),PVAL(2), PVAL(9),PVAL(6),PVAL(4), PVAL(8),SVAL(5),SVAL(7),
-            
-            PVAL(2),PVAL(7),SVAL(1), PVAL(6),SVAL(9),PVAL(3), PVAL(5),PVAL(8),SVAL(4),
-            SVAL(5),PVAL(9),SVAL(3), PVAL(8),SVAL(4),PVAL(2), PVAL(6),PVAL(7),PVAL(1),
-            PVAL(4),SVAL(8),SVAL(6), PVAL(1),PVAL(5),SVAL(7), PVAL(9),PVAL(2),SVAL(3),
-            
-            PVAL(3),SVAL(6),PVAL(4), SVAL(7),PVAL(1),PVAL(5), SVAL(2),PVAL(9),PVAL(8),
-            SVAL(7),PVAL(2),PVAL(5), PVAL(3),SVAL(8),SVAL(9), PVAL(4),SVAL(1),PVAL(6),
-            SVAL(8),PVAL(1),PVAL(9), PVAL(4),PVAL(2),PVAL(6), PVAL(7),PVAL(3),PVAL(5),
-        }
-    },
-    {
-        {
-            PVAL(2),PVAL(1),PVAL(8), SVAL(6),SVAL(5),PVAL(3), PVAL(7),PVAL(9),SVAL(4),
-            PVAL(3),PVAL(4),PVAL(7), PVAL(9),PVAL(1),SVAL(8), SVAL(6),PVAL(2),SVAL(5),
-            PVAL(6),PVAL(5),PVAL(9), SVAL(2),PVAL(7),PVAL(4), PVAL(3),SVAL(1),PVAL(8),
-            
-            PVAL(5),SVAL(8),PVAL(1), PVAL(4),PVAL(9),PVAL(7), PVAL(2),SVAL(6),PVAL(3),
-            PVAL(4),PVAL(7),SVAL(2), PVAL(8),SVAL(3),PVAL(6), PVAL(1),PVAL(5),PVAL(9),
-            PVAL(9),PVAL(6),SVAL(3), SVAL(5),PVAL(2),PVAL(1), SVAL(8),PVAL(4),PVAL(7),
-            
-            PVAL(1),PVAL(3),SVAL(4), PVAL(7),PVAL(6),PVAL(5), PVAL(9),PVAL(8),SVAL(2),
-            SVAL(8),SVAL(9),PVAL(6), PVAL(3),SVAL(4),PVAL(2), PVAL(5),SVAL(7),PVAL(1),
-            SVAL(7),PVAL(2),PVAL(5), PVAL(1),PVAL(8),SVAL(9), PVAL(4),PVAL(3),PVAL(6),
-        }
-    },
-    {
-        {
-            PVAL(8),SVAL(5),PVAL(7), PVAL(6),SVAL(2),SVAL(9), PVAL(1),PVAL(4),SVAL(3),
-            SVAL(6),PVAL(3),PVAL(1), SVAL(7),PVAL(8),PVAL(4), PVAL(2),PVAL(9),PVAL(5),
-            PVAL(9),PVAL(4),PVAL(2), PVAL(1),PVAL(5),SVAL(3), SVAL(8),PVAL(7),PVAL(6),
-            
-            PVAL(4),PVAL(8),PVAL(6), SVAL(2),PVAL(1),PVAL(5), PVAL(9),PVAL(3),PVAL(7),
-            SVAL(5),PVAL(7),SVAL(9), PVAL(8),PVAL(3),PVAL(6), PVAL(4),SVAL(1),SVAL(2),
-            PVAL(2),SVAL(1),PVAL(3), PVAL(4),PVAL(9),PVAL(7), SVAL(6),PVAL(5),PVAL(8),
-            
-            SVAL(7),PVAL(9),PVAL(4), SVAL(5),SVAL(6),PVAL(8), PVAL(3),SVAL(2),PVAL(1),
-            PVAL(1),PVAL(6),PVAL(5), SVAL(3),PVAL(4),PVAL(2), PVAL(7),SVAL(8),SVAL(9),
-            PVAL(3),PVAL(2),SVAL(8), PVAL(9),SVAL(7),PVAL(1), PVAL(5),PVAL(6),PVAL(4),
-        }
-    },
-    {
-        {
-            PVAL(3),PVAL(8),PVAL(1), SVAL(9),SVAL(2),PVAL(4), PVAL(6),SVAL(5),PVAL(7),
-            SVAL(5),PVAL(9),PVAL(4), PVAL(6),PVAL(3),PVAL(7), SVAL(2),PVAL(8),SVAL(1),
-            SVAL(6),SVAL(7),PVAL(2), PVAL(8),SVAL(1),PVAL(5), SVAL(9),SVAL(3),PVAL(4),
-            
-            PVAL(7),PVAL(3),PVAL(8), SVAL(1),PVAL(4),SVAL(6), PVAL(5),PVAL(2),PVAL(9),
-            SVAL(4),PVAL(2),SVAL(9), PVAL(5),PVAL(7),SVAL(3), SVAL(8),SVAL(1),PVAL(6),
-            PVAL(1),SVAL(5),PVAL(6), PVAL(2),PVAL(8),PVAL(9), PVAL(7),PVAL(4),PVAL(3),
-            
-            PVAL(2),PVAL(1),PVAL(7), SVAL(3),PVAL(6),PVAL(8), PVAL(4),SVAL(9),PVAL(5),
-            PVAL(9),SVAL(6),SVAL(3), PVAL(4),PVAL(5),PVAL(2), PVAL(1),PVAL(7),PVAL(8),
-            SVAL(8),PVAL(4),PVAL(5), SVAL(7),PVAL(9),PVAL(1), PVAL(3),PVAL(6),PVAL(2),
-        }
-    },
 };
 
 
@@ -2442,6 +2292,21 @@ tPuzzle hardPuzzles[] = {
     },
     {
         {
+            PVAL(9),SVAL(1),PVAL(8), SVAL(3),PVAL(6),PVAL(4), PVAL(5),PVAL(2),PVAL(7),
+            PVAL(3),PVAL(2),SVAL(5), PVAL(9),PVAL(8),PVAL(7), PVAL(6),SVAL(4),PVAL(1),
+            PVAL(7),SVAL(4),PVAL(6), SVAL(1),PVAL(5),SVAL(2), PVAL(9),SVAL(8),PVAL(3),
+            
+            PVAL(6),PVAL(5),PVAL(2), SVAL(4),PVAL(3),SVAL(8), PVAL(1),PVAL(7),PVAL(9),
+            PVAL(4),PVAL(9),SVAL(7), PVAL(6),PVAL(2),PVAL(1), PVAL(8),PVAL(3),SVAL(5),
+            PVAL(1),PVAL(8),PVAL(3), PVAL(5),SVAL(7),SVAL(9), PVAL(4),PVAL(6),SVAL(2),
+            
+            PVAL(2),PVAL(6),SVAL(9), PVAL(8),PVAL(1),SVAL(3), SVAL(7),PVAL(5),PVAL(4),
+            PVAL(8),PVAL(7),PVAL(4), SVAL(2),PVAL(9),PVAL(5), PVAL(3),PVAL(1),SVAL(6),
+            SVAL(5),PVAL(3),SVAL(1), PVAL(7),SVAL(4),PVAL(6), PVAL(2),PVAL(9),PVAL(8),
+        }
+    },
+    {
+        {
             PVAL(8),SVAL(6),SVAL(4), SVAL(2),PVAL(9),PVAL(7), PVAL(1),PVAL(5),PVAL(3),
             PVAL(9),PVAL(1),PVAL(7), PVAL(3),SVAL(5),PVAL(4), PVAL(6),PVAL(8),PVAL(2),
             PVAL(5),PVAL(2),PVAL(3), SVAL(6),PVAL(8),PVAL(1), PVAL(4),SVAL(7),PVAL(9),
@@ -2472,6 +2337,36 @@ tPuzzle hardPuzzles[] = {
     },
     {
         {
+            PVAL(6),PVAL(7),PVAL(3), PVAL(8),PVAL(4),PVAL(2), PVAL(1),SVAL(9),PVAL(5),
+            SVAL(9),PVAL(1),PVAL(5), SVAL(7),PVAL(3),PVAL(6), SVAL(4),PVAL(8),SVAL(2),
+            PVAL(4),PVAL(2),PVAL(8), PVAL(1),PVAL(9),SVAL(5), SVAL(3),PVAL(6),PVAL(7),
+            
+            PVAL(3),PVAL(4),PVAL(2), PVAL(9),PVAL(8),PVAL(7), SVAL(6),SVAL(5),PVAL(1),
+            SVAL(8),PVAL(6),SVAL(7), SVAL(5),PVAL(1),PVAL(3), PVAL(9),SVAL(2),PVAL(4),
+            PVAL(5),SVAL(9),SVAL(1), PVAL(2),PVAL(6),SVAL(4), PVAL(8),SVAL(7),PVAL(3),
+            
+            PVAL(1),PVAL(5),PVAL(6), PVAL(3),PVAL(2),PVAL(9), PVAL(7),PVAL(4),PVAL(8),
+            PVAL(2),SVAL(3),PVAL(9), PVAL(4),PVAL(7),SVAL(8), PVAL(5),SVAL(1),PVAL(6),
+            SVAL(7),SVAL(8),PVAL(4), SVAL(6),SVAL(5),PVAL(1), PVAL(2),PVAL(3),PVAL(9),
+        }
+    },
+    {
+        {
+            PVAL(9),PVAL(8),SVAL(6), PVAL(4),SVAL(7),PVAL(5), PVAL(1),PVAL(2),PVAL(3),
+            PVAL(5),PVAL(1),PVAL(7), SVAL(3),PVAL(6),SVAL(2), SVAL(4),SVAL(9),SVAL(8),
+            PVAL(4),PVAL(2),PVAL(3), PVAL(1),PVAL(8),PVAL(9), PVAL(6),PVAL(7),SVAL(5),
+            
+            PVAL(2),PVAL(9),SVAL(5), PVAL(6),PVAL(1),PVAL(8), PVAL(3),PVAL(4),PVAL(7),
+            PVAL(6),PVAL(4),PVAL(1), SVAL(5),SVAL(3),PVAL(7), PVAL(2),PVAL(8),SVAL(9),
+            PVAL(7),PVAL(3),PVAL(8), PVAL(2),PVAL(9),PVAL(4), PVAL(5),SVAL(1),SVAL(6),
+            
+            SVAL(8),PVAL(6),PVAL(2), PVAL(9),PVAL(5),SVAL(1), SVAL(7),PVAL(3),SVAL(4),
+            SVAL(3),PVAL(7),SVAL(4), SVAL(8),PVAL(2),PVAL(6), PVAL(9),PVAL(5),PVAL(1),
+            PVAL(1),SVAL(5),SVAL(9), PVAL(7),PVAL(4),PVAL(3), PVAL(8),PVAL(6),PVAL(2),
+        }
+    },
+    {
+        {
             SVAL(8),SVAL(1),PVAL(7), PVAL(6),PVAL(3),PVAL(9), PVAL(5),SVAL(2),PVAL(4),
             SVAL(6),PVAL(2),SVAL(9), PVAL(4),PVAL(5),PVAL(7), PVAL(1),PVAL(8),SVAL(3),
             PVAL(5),PVAL(3),PVAL(4), PVAL(8),PVAL(1),SVAL(2), PVAL(6),PVAL(9),SVAL(7),
@@ -2483,126 +2378,6 @@ tPuzzle hardPuzzles[] = {
             PVAL(2),PVAL(9),SVAL(3), SVAL(1),SVAL(6),PVAL(5), PVAL(4),PVAL(7),SVAL(8),
             PVAL(7),SVAL(8),PVAL(1), PVAL(2),SVAL(4),PVAL(3), SVAL(9),PVAL(6),PVAL(5),
             PVAL(4),PVAL(5),PVAL(6), PVAL(7),PVAL(9),PVAL(8), SVAL(2),PVAL(3),SVAL(1),
-        }
-    },
-    {
-        {
-            PVAL(4),PVAL(8),PVAL(6), PVAL(5),SVAL(1),PVAL(3), PVAL(7),PVAL(9),SVAL(2),
-            PVAL(5),PVAL(3),PVAL(2), PVAL(9),SVAL(4),PVAL(7), PVAL(6),PVAL(1),PVAL(8),
-            PVAL(9),SVAL(7),PVAL(1), SVAL(6),PVAL(2),SVAL(8), PVAL(5),SVAL(4),PVAL(3),
-            
-            PVAL(8),SVAL(2),PVAL(4), PVAL(1),PVAL(7),PVAL(5), PVAL(9),PVAL(3),SVAL(6),
-            PVAL(7),SVAL(6),PVAL(3), PVAL(8),SVAL(9),PVAL(4), PVAL(1),PVAL(2),SVAL(5),
-            SVAL(1),PVAL(5),SVAL(9), PVAL(2),PVAL(3),PVAL(6), PVAL(8),SVAL(7),SVAL(4),
-            
-            PVAL(6),PVAL(1),PVAL(7), PVAL(3),PVAL(5),PVAL(2), PVAL(4),PVAL(8),SVAL(9),
-            PVAL(3),PVAL(4),SVAL(8), SVAL(7),SVAL(6),PVAL(9), SVAL(2),PVAL(5),PVAL(1),
-            SVAL(2),PVAL(9),PVAL(5), PVAL(4),PVAL(8),PVAL(1), SVAL(3),PVAL(6),PVAL(7),
-        }
-    },
-    {
-        {
-            PVAL(6),PVAL(7),SVAL(4), SVAL(5),PVAL(1),PVAL(3), PVAL(8),PVAL(9),PVAL(2),
-            PVAL(2),PVAL(5),PVAL(3), PVAL(7),SVAL(8),PVAL(9), SVAL(6),PVAL(4),PVAL(1),
-            SVAL(1),PVAL(9),PVAL(8), PVAL(4),PVAL(2),SVAL(6), SVAL(3),PVAL(5),PVAL(7),
-            
-            PVAL(8),PVAL(3),PVAL(1), PVAL(9),SVAL(5),SVAL(7), SVAL(4),PVAL(2),PVAL(6),
-            PVAL(7),SVAL(4),PVAL(6), SVAL(1),PVAL(3),PVAL(2), PVAL(5),SVAL(8),PVAL(9),
-            SVAL(9),SVAL(2),PVAL(5), SVAL(6),PVAL(4),PVAL(8), PVAL(7),PVAL(1),PVAL(3),
-            
-            PVAL(4),PVAL(6),SVAL(9), PVAL(8),PVAL(7),PVAL(1), PVAL(2),PVAL(3),SVAL(5),
-            SVAL(3),PVAL(8),PVAL(7), SVAL(2),PVAL(9),PVAL(5), PVAL(1),SVAL(6),PVAL(4),
-            PVAL(5),SVAL(1),PVAL(2), PVAL(3),PVAL(6),SVAL(4), PVAL(9),SVAL(7),PVAL(8),
-        }
-    },
-    {
-        {
-            SVAL(8),PVAL(4),PVAL(1), PVAL(6),PVAL(5),SVAL(9), PVAL(3),PVAL(2),SVAL(7),
-            PVAL(3),PVAL(5),PVAL(6), PVAL(7),SVAL(4),PVAL(2), PVAL(8),PVAL(9),PVAL(1),
-            PVAL(2),PVAL(9),PVAL(7), SVAL(8),PVAL(1),SVAL(3), PVAL(5),PVAL(6),PVAL(4),
-            
-            SVAL(6),PVAL(2),PVAL(5), PVAL(3),PVAL(9),SVAL(1), SVAL(4),PVAL(7),PVAL(8),
-            SVAL(4),PVAL(8),PVAL(9), PVAL(2),PVAL(7),PVAL(5), PVAL(1),SVAL(3),PVAL(6),
-            PVAL(1),PVAL(7),PVAL(3), PVAL(4),SVAL(8),SVAL(6), PVAL(9),SVAL(5),SVAL(2),
-            
-            PVAL(9),PVAL(6),SVAL(8), SVAL(5),SVAL(2),PVAL(4), SVAL(7),PVAL(1),PVAL(3),
-            SVAL(7),SVAL(1),PVAL(2), PVAL(9),SVAL(3),PVAL(8), SVAL(6),PVAL(4),PVAL(5),
-            PVAL(5),SVAL(3),PVAL(4), PVAL(1),PVAL(6),PVAL(7), SVAL(2),PVAL(8),PVAL(9),
-        }
-    },
-    {
-        {
-            PVAL(9),PVAL(8),SVAL(5), PVAL(6),PVAL(3),SVAL(2), PVAL(4),SVAL(7),SVAL(1),
-            SVAL(4),PVAL(7),SVAL(1), PVAL(8),PVAL(5),PVAL(9), PVAL(2),PVAL(6),PVAL(3),
-            SVAL(3),PVAL(2),SVAL(6), PVAL(7),PVAL(4),PVAL(1), PVAL(9),SVAL(8),PVAL(5),
-            
-            PVAL(6),PVAL(5),PVAL(9), PVAL(4),PVAL(1),SVAL(7), SVAL(3),PVAL(2),PVAL(8),
-            PVAL(2),PVAL(1),PVAL(3), PVAL(9),SVAL(6),SVAL(8), PVAL(5),PVAL(4),PVAL(7),
-            PVAL(8),PVAL(4),PVAL(7), SVAL(5),PVAL(2),PVAL(3), SVAL(6),SVAL(1),SVAL(9),
-            
-            PVAL(7),SVAL(9),PVAL(4), PVAL(2),SVAL(8),PVAL(5), PVAL(1),PVAL(3),SVAL(6),
-            SVAL(1),PVAL(6),PVAL(8), SVAL(3),PVAL(9),PVAL(4), SVAL(7),PVAL(5),PVAL(2),
-            PVAL(5),PVAL(3),PVAL(2), PVAL(1),SVAL(7),PVAL(6), PVAL(8),PVAL(9),PVAL(4),
-        }
-    },
-    {
-        {
-            SVAL(8),PVAL(2),PVAL(4), SVAL(1),PVAL(9),PVAL(6), PVAL(7),PVAL(3),PVAL(5),
-            SVAL(7),PVAL(1),SVAL(6), PVAL(2),SVAL(5),SVAL(3), PVAL(8),PVAL(4),PVAL(9),
-            PVAL(3),PVAL(5),PVAL(9), PVAL(4),PVAL(8),PVAL(7), SVAL(1),PVAL(6),SVAL(2),
-            
-            PVAL(5),SVAL(3),PVAL(1), PVAL(7),SVAL(4),PVAL(2), PVAL(9),SVAL(8),SVAL(6),
-            SVAL(9),SVAL(6),PVAL(2), SVAL(5),PVAL(3),PVAL(8), PVAL(4),SVAL(7),SVAL(1),
-            PVAL(4),PVAL(8),PVAL(7), SVAL(9),PVAL(6),PVAL(1), PVAL(5),PVAL(2),PVAL(3),
-            
-            PVAL(6),PVAL(9),SVAL(5), PVAL(3),PVAL(7),PVAL(4), SVAL(2),PVAL(1),PVAL(8),
-            SVAL(1),SVAL(7),PVAL(8), PVAL(6),PVAL(2),PVAL(9), SVAL(3),PVAL(5),PVAL(4),
-            PVAL(2),PVAL(4),PVAL(3), PVAL(8),PVAL(1),PVAL(5), PVAL(6),SVAL(9),PVAL(7),
-        }
-    },
-    {
-        {
-            PVAL(7),PVAL(9),PVAL(6), SVAL(1),SVAL(8),PVAL(5), PVAL(2),PVAL(4),PVAL(3),
-            PVAL(1),SVAL(4),SVAL(3), SVAL(6),PVAL(9),PVAL(2), PVAL(7),PVAL(8),PVAL(5),
-            PVAL(8),SVAL(5),PVAL(2), SVAL(7),PVAL(4),PVAL(3), SVAL(6),SVAL(1),PVAL(9),
-            
-            PVAL(3),PVAL(8),PVAL(5), PVAL(4),PVAL(2),PVAL(1), SVAL(9),PVAL(7),SVAL(6),
-            PVAL(6),SVAL(2),PVAL(4), PVAL(9),PVAL(5),SVAL(7), PVAL(1),PVAL(3),PVAL(8),
-            PVAL(9),PVAL(1),SVAL(7), PVAL(8),SVAL(3),PVAL(6), PVAL(4),PVAL(5),SVAL(2),
-            
-            PVAL(5),PVAL(3),SVAL(9), PVAL(2),SVAL(1),SVAL(4), PVAL(8),PVAL(6),PVAL(7),
-            SVAL(4),SVAL(7),SVAL(8), PVAL(3),PVAL(6),SVAL(9), SVAL(5),PVAL(2),PVAL(1),
-            PVAL(2),PVAL(6),PVAL(1), SVAL(5),PVAL(7),SVAL(8), PVAL(3),PVAL(9),PVAL(4),
-        }
-    },
-    {
-        {
-            SVAL(2),PVAL(6),PVAL(5), PVAL(1),PVAL(3),SVAL(8), PVAL(9),PVAL(4),SVAL(7),
-            PVAL(3),PVAL(7),SVAL(9), PVAL(5),SVAL(2),PVAL(4), SVAL(1),PVAL(8),PVAL(6),
-            PVAL(4),SVAL(8),PVAL(1), PVAL(9),SVAL(6),PVAL(7), PVAL(2),PVAL(3),PVAL(5),
-            
-            SVAL(7),PVAL(5),PVAL(4), SVAL(3),PVAL(1),SVAL(9), PVAL(8),SVAL(6),PVAL(2),
-            PVAL(8),SVAL(1),SVAL(2), PVAL(7),PVAL(4),PVAL(6), SVAL(5),PVAL(9),SVAL(3),
-            PVAL(6),SVAL(9),PVAL(3), PVAL(8),PVAL(5),PVAL(2), PVAL(4),PVAL(7),PVAL(1),
-            
-            PVAL(1),SVAL(2),PVAL(8), PVAL(4),SVAL(7),PVAL(3), PVAL(6),SVAL(5),PVAL(9),
-            PVAL(5),PVAL(4),SVAL(7), PVAL(6),PVAL(9),PVAL(1), PVAL(3),SVAL(2),PVAL(8),
-            PVAL(9),PVAL(3),SVAL(6), PVAL(2),SVAL(8),PVAL(5), PVAL(7),PVAL(1),SVAL(4),
-        }
-    },
-    {
-        {
-            PVAL(3),PVAL(6),PVAL(7), SVAL(8),PVAL(5),PVAL(9), PVAL(2),SVAL(1),PVAL(4),
-            PVAL(1),SVAL(5),PVAL(8), PVAL(2),SVAL(4),SVAL(7), PVAL(9),PVAL(3),PVAL(6),
-            PVAL(9),PVAL(2),PVAL(4), SVAL(3),PVAL(1),SVAL(6), PVAL(5),SVAL(7),PVAL(8),
-            
-            SVAL(4),PVAL(1),PVAL(5), PVAL(7),PVAL(6),PVAL(8), PVAL(3),SVAL(9),PVAL(2),
-            SVAL(2),SVAL(3),PVAL(6), SVAL(1),SVAL(9),PVAL(4), PVAL(7),PVAL(8),PVAL(5),
-            PVAL(8),PVAL(7),SVAL(9), PVAL(5),PVAL(2),PVAL(3), PVAL(4),PVAL(6),SVAL(1),
-            
-            PVAL(6),SVAL(9),PVAL(2), PVAL(4),PVAL(3),SVAL(1), SVAL(8),PVAL(5),PVAL(7),
-            SVAL(7),PVAL(4),SVAL(3), SVAL(6),PVAL(8),PVAL(5), PVAL(1),PVAL(2),PVAL(9),
-            SVAL(5),PVAL(8),PVAL(1), PVAL(9),PVAL(7),SVAL(2), PVAL(6),SVAL(4),SVAL(3),
         }
     },
 };

@@ -40,5 +40,8 @@ extern bool setValueAtPos(tPos x, tPos y, tSquareVal val);
 // Returns false if unable to toggle the scratch value for some reason
 extern bool toggleScratchValueAtPos(tPos x, tPos y, tSquareVal val);
 
+// Returns false if the last move cannot be undone.
+extern bool undoLastMove(void);
+
 
 #endif /* defined(__a2sudoku__game__) */
