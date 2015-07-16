@@ -149,27 +149,23 @@ bool isSquareInvalid(tPos col, tPos row)
 }
 
 
-bool refreshInvalid(tPos col, tPos row)
+void refreshInvalid(tPos col, tPos row)
 {
-    bool update = false;
     tPos x, y;
+    tGameSquare *square;
+    bool newInvalid;
     
     for (y = 0; y < BOARD_SIZE; y++) {
         for (x = 0; x < BOARD_SIZE; x++) {
-            bool newInvalid = isSquareInvalid(x, y);
-            if (newInvalid != SQUARE_XY(x, y).invalid) {
-                SQUARE_XY(x, y).invalid = isSquareInvalid(x, y);
-                
-                if ((col == x) &&
-                    (row == y))
-                    update = true;
-                else
-                    refreshPos(x, y);
+            newInvalid = isSquareInvalid(x, y);
+            square = &(SQUARE_XY(x, y));
+            
+            if (newInvalid != square->invalid) {
+                square->invalid = newInvalid;
+                refreshPos(x, y);
             }
         }
     }
-    
-    return update;
 }
 
 
@@ -177,6 +173,7 @@ bool setValueAtPos(tPos x, tPos y, tSquareVal val)
 {
     tGameSquare *square = &(SQUARE_XY(x, y));
     bool update = false;
+    bool checkValues = false;
     bool correct;
     
     if (square->knownAtStart) {
@@ -186,6 +183,7 @@ bool setValueAtPos(tPos x, tPos y, tSquareVal val)
     if (square->value != val) {
         square->value = val;
         update = true;
+        checkValues = true;
     }
     
     if (square->scratchValues != 0) {
@@ -193,17 +191,19 @@ bool setValueAtPos(tPos x, tPos y, tSquareVal val)
         update = true;
     }
     
-    correct = checkValueAtPos(theGame.puzzle, val, x, y);
-    if (square->correct != correct) {
-        square->correct = correct;
-        update = true;
+    if (checkValues) {
+        correct = checkValueAtPos(theGame.puzzle, val, x, y);
+        if (square->correct != correct) {
+            square->correct = correct;
+            update = true;
+        }
     }
     
-    if (refreshInvalid(x, y))
-        update = true;
-    
     if (update)
-        refreshPos(x, y);
+        refreshPos(x,y);
+    
+    if (checkValues)
+        refreshInvalid(x, y);
     
     return true;
 }

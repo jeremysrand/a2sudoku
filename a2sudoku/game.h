@@ -13,6 +13,11 @@
 #define __a2sudoku__game__
 
 
+// Macros
+
+#define SCRATCH_TEST(scratch, val) ((scratch) & (0x1 << val))
+
+
 // Typedefs
 
 typedef uint16_t tScratchValues;

@@ -41,6 +41,12 @@ extern char a2e_hi;
                      ((BOARD_SIZE + 1) * THIN_LINE_HEIGHT) + \
                      (((BOARD_SIZE / SUBSQUARE_SIZE) + 1) * (THICK_LINE_HEIGHT - THIN_LINE_HEIGHT)))
 
+#define WON_WIDTH 100
+#define WON_HEIGHT 55
+
+#define SCRATCH_WIDTH 9
+#define SCRATCH_HEIGHT 6
+
 
 // Globals;
 
@@ -52,20 +58,12 @@ int screenSquaresY[BOARD_SIZE];
 // Implementation
 
 
-void initUI(void)
+void drawGrid(void)
 {
-    static bool tgi_inited = false;
     tPos pos;
     int xPos = 0;
     int yPos = 0;
-    
-    if (tgi_inited)
-        return;
-    
-    // Install drivers
-    tgi_install(&a2e_hi);
-    
-    tgi_init();
+
     tgi_clear();
     
     tgi_setcolor(COLOR_WHITE);
@@ -92,6 +90,20 @@ void initUI(void)
         xPos += SQUARE_WIDTH;
         yPos += SQUARE_HEIGHT;
     }
+}
+
+
+void initUI(void)
+{
+    static bool tgi_inited = false;
+    
+    if (tgi_inited)
+        return;
+    
+    // Install drivers
+    tgi_install(&a2e_hi);
+    
+    tgi_init();
     
     tgi_inited = true;
 }
@@ -121,7 +133,7 @@ void displayInstructions(void)
            "subsquare.  Move the cursor with I-J-K-L"
            "or the arrow keys.  Press a number key\n"
            "to enter a value.  Press a number key\n"
-           "while holding shift or closed apple to\n"
+           "while holding shift or open apple to\n"
            "toggle a scratch value.  Press 0 to\n"
            "clear a square.\n"
            "\n"
@@ -143,6 +155,143 @@ void displayInstructions(void)
     srand(seed);
     
     clrscr();
+}
+
+
+void drawOne(int screenX, int screenY)
+{
+    tgi_line(screenX + 2, screenY, screenX + 2, screenY + 3);
+    tgi_line(screenX + 1, screenY + 4, screenX + 3, screenY + 4);
+    tgi_setpixel(screenX + 1, screenY + 1);
+}
+
+
+void drawTwo(int screenX, int screenY)
+{
+    tgi_setpixel(screenX, screenY + 1);
+    tgi_line(screenX + 1, screenY, screenX + 3, screenY);
+    tgi_line(screenX + 4, screenY + 1, screenX, screenY + 4);
+    tgi_lineto(screenX + 4, screenY + 4);
+}
+
+
+void drawThree(int screenX, int screenY)
+{
+    tgi_line(screenX + 1, screenY, screenX + 3, screenY);
+    tgi_line(screenX + 1, screenY + 2, screenX + 3, screenY + 2);
+    tgi_line(screenX + 1, screenY + 4, screenX + 3, screenY + 4);
+    tgi_setpixel(screenX + 4, screenY + 1);
+    tgi_setpixel(screenX + 4, screenY + 3);
+}
+
+
+void drawFour(int screenX, int screenY)
+{
+    tgi_line(screenX, screenY + 1, screenX, screenY + 2);
+    tgi_lineto(screenX + 4, screenY + 2);
+    tgi_line(screenX + 3, screenY, screenX + 3, screenY + 4);
+}
+
+
+void drawFive(int screenX, int screenY)
+{
+    tgi_line(screenX + 4, screenY, screenX, screenY);
+    tgi_lineto(screenX, screenY + 2);
+    tgi_lineto(screenX + 3, screenY + 2);
+    tgi_line(screenX, screenY + 4, screenX + 3, screenY + 4);
+    tgi_setpixel(screenX + 4, screenY + 3);
+}
+
+
+void drawSix(int screenX, int screenY)
+{
+    tgi_line(screenX + 3, screenY, screenX, screenY + 3);
+    tgi_line(screenX + 1, screenY + 4, screenX + 3, screenY + 4);
+    tgi_line(screenX + 1, screenY + 2, screenX + 3, screenY + 2);
+    tgi_setpixel(screenX + 4, screenY + 3);
+}
+
+
+void drawSeven(int screenX, int screenY)
+{
+    tgi_line(screenX, screenY, screenX + 4, screenY);
+    tgi_line(screenX + 4, screenY + 1, screenX + 1, screenY + 4);
+}
+
+
+void drawEight(int screenX, int screenY)
+{
+    tgi_line(screenX + 1, screenY, screenX + 3, screenY);
+    tgi_line(screenX + 1, screenY + 2, screenX + 3, screenY + 2);
+    tgi_line(screenX + 1, screenY + 4, screenX + 3, screenY + 4);
+    tgi_setpixel(screenX, screenY + 1);
+    tgi_setpixel(screenX, screenY + 3);
+    tgi_setpixel(screenX + 4, screenY + 1);
+    tgi_setpixel(screenX + 4, screenY + 3);
+}
+
+
+void drawNine(int screenX, int screenY)
+{
+    tgi_line(screenX + 1, screenY, screenX + 3, screenY);
+    tgi_line(screenX + 1, screenY + 2, screenX + 3, screenY + 2);
+    tgi_line(screenX + 4, screenY + 1, screenX + 4, screenY + 4);
+    tgi_setpixel(screenX, screenY + 1);
+}
+
+
+void drawScratch(tPos x, tPos y, tScratchValues scratch)
+{
+    int screenX = screenSquaresX[x] + 1;
+    int screenY = screenSquaresY[y] + 1;
+    
+    if (SCRATCH_TEST(scratch, 1)) {
+        drawOne(screenX, screenY);
+    }
+    
+    screenX += SCRATCH_WIDTH;
+    if (SCRATCH_TEST(scratch, 2)) {
+        drawTwo(screenX, screenY);
+    }
+    
+    screenX += SCRATCH_WIDTH;
+    if (SCRATCH_TEST(scratch, 3)) {
+        drawThree(screenX, screenY);
+    }
+    
+    screenX = screenSquaresX[x] + 1;
+    screenY += SCRATCH_HEIGHT;
+    if (SCRATCH_TEST(scratch, 4)) {
+        drawFour(screenX, screenY);
+    }
+    
+    screenX += SCRATCH_WIDTH;
+    if (SCRATCH_TEST(scratch, 5)) {
+        drawFive(screenX, screenY);
+    }
+    
+    screenX += SCRATCH_WIDTH;
+    if (SCRATCH_TEST(scratch, 6)) {
+        drawSix(screenX, screenY);
+    }
+    
+    screenX = screenSquaresX[x] + 1;
+    screenY += SCRATCH_HEIGHT;
+    if (SCRATCH_TEST(scratch, 7)) {
+        drawSeven(screenX, screenY);
+    }
+    
+    screenX += SCRATCH_WIDTH;
+    if (SCRATCH_TEST(scratch, 8)) {
+        drawEight(screenX, screenY);
+    }
+    
+    screenX += SCRATCH_WIDTH;
+    if (SCRATCH_TEST(scratch, 9)) {
+        drawNine(screenX, screenY);
+    }
+    
+    tgi_setcolor(COLOR_WHITE);
 }
 
 
@@ -169,6 +318,8 @@ void updatePos(tPos x, tPos y, tSquareVal val, tScratchValues scratch, bool corr
         
         if (invalid)
             tgi_line(screenX, edgeY, edgeX, screenY);
+    } else if (scratch != 0) {
+        drawScratch(x, y, scratch);
     }
     
     if ((cursorX == x) &&
@@ -181,6 +332,25 @@ void updatePos(tPos x, tPos y, tSquareVal val, tScratchValues scratch, bool corr
 }
 
 
+void youWon(void)
+{
+    int wonX = (TOTAL_WIDTH - WON_WIDTH) / 2;
+    int wonY = (TOTAL_HEIGHT - WON_HEIGHT) / 2;
+    char *line1 = "You solved it!";
+    char *line2 = "Press any key";
+    int textHeight = tgi_textheight(line1);
+    
+    tgi_setcolor(COLOR_BLACK);
+    tgi_bar(wonX, wonY, wonX + WON_WIDTH, wonY + WON_HEIGHT);
+    
+    tgi_setcolor(COLOR_WHITE);
+    tgi_outtextxy(wonX + 10, wonY + (textHeight * 2), line1);
+    tgi_outtextxy(wonX + 7, wonY + (textHeight * 4), line2);
+    
+    cgetc();
+}
+
+
 bool playGame(void)
 {
     initUI();
@@ -188,10 +358,20 @@ bool playGame(void)
     cursorX = 0;
     cursorY = 0;
     
+    drawGrid();
+    
     startGame(updatePos);
     
     while (true) {
-        char ch = cgetc();
+        char ch;
+        bool shouldNotBeep = true;
+        
+        if (isPuzzleSolved()) {
+            youWon();
+            return true;
+        }
+        
+        ch = cgetc();
         
         switch (ch) {
             case 'h':
@@ -261,8 +441,56 @@ bool playGame(void)
             case '7':
             case '8':
             case '9':
-                setValueAtPos(cursorX, cursorY, ch - '0');
+                shouldNotBeep = setValueAtPos(cursorX, cursorY, ch - '0');
                 break;
+                
+            case CH_F1:
+            case '!':
+                shouldNotBeep = toggleScratchValueAtPos(cursorX, cursorY, 1);
+                break;
+                
+            case CH_F2:
+            case '@':
+                shouldNotBeep = toggleScratchValueAtPos(cursorX, cursorY, 2);
+                break;
+                
+            case CH_F3:
+            case '#':
+                shouldNotBeep = toggleScratchValueAtPos(cursorX, cursorY, 3);
+                break;
+                
+            case CH_F4:
+            case '$':
+                shouldNotBeep = toggleScratchValueAtPos(cursorX, cursorY, 4);
+                break;
+                
+            case CH_F5:
+            case '%':
+                shouldNotBeep = toggleScratchValueAtPos(cursorX, cursorY, 5);
+                break;
+                
+            case CH_F6:
+            case '^':
+                shouldNotBeep = toggleScratchValueAtPos(cursorX, cursorY, 6);
+                break;
+                
+            case CH_F7:
+            case '&':
+                shouldNotBeep = toggleScratchValueAtPos(cursorX, cursorY, 7);
+                break;
+                
+            case CH_F8:
+            case '*':
+                shouldNotBeep = toggleScratchValueAtPos(cursorX, cursorY, 8);
+                break;
+                
+            case CH_F9:
+            case '(':
+                shouldNotBeep = toggleScratchValueAtPos(cursorX, cursorY, 9);
+                break;
+        }
+        if (!shouldNotBeep) {
+            printf("\007");
         }
     }
     
