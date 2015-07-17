@@ -517,24 +517,59 @@ void youWon(void)
 
 bool playGame(void)
 {
+    bool shouldSave = false;
+    bool gameLoaded = false;
+    char ch;
+    
     initUI();
     
     clrscr();
-    printf("\n\nLoading your puzzle for you\n    Please be patient...");
-    
     textMode();
+    
+    if (loadGame(updatePos)) {
+        bool gotAnswer = false;
+        
+        printf("\n\nYou have a saved puzzle!\n    Would you like to continue it (Y/N)");
+        
+        while (!gotAnswer) {
+            ch = cgetc();
+            switch (ch) {
+                case 'y':
+                case 'Y':
+                    printf("\n\nLoading your saved puzzle");
+                    gameLoaded = true;
+                    gotAnswer = true;
+                    shouldSave = true;
+                    break;
+                    
+                case 'n':
+                case 'N':
+                    gotAnswer = true;
+                    break;
+                    
+                default:
+                    printf("\007");
+                    break;
+            }
+        }
+    }
     
     cursorX = 0;
     cursorY = 0;
     
-    drawGrid();
+    if (!gameLoaded) {
+        clrscr();
+        
+        printf("\n\nLoading a new puzzle for you\n    Please be patient...");
+        startGame(gameOptions.difficulty, updatePos);
+    }
     
-    startGame(gameOptions.difficulty, updatePos);
+    drawGrid();
+    refreshAllPos();
     
     graphicsMode();
     
     while (true) {
-        char ch;
         bool shouldNotBeep = true;
         bool shouldRefresh = false;
         
@@ -568,6 +603,11 @@ bool playGame(void)
             case 'Q':
             case CH_ESC:
                 shutdownUI();
+                if (shouldSave) {
+                    clrscr();
+                    printf("\n\nSaving your puzzle so you can continue\n    later...");
+                    saveGame();
+                }
                 return false;
                 
             case 'i':
@@ -637,51 +677,71 @@ bool playGame(void)
             case '8':
             case '9':
                 shouldNotBeep = setValueAtPos(cursorX, cursorY, ch - '0');
+                if (shouldNotBeep)
+                    shouldSave = true;
                 break;
                 
             case CH_F1:
             case '!':
                 shouldNotBeep = toggleScratchValueAtPos(cursorX, cursorY, 1);
+                if (shouldNotBeep)
+                    shouldSave = true;
                 break;
                 
             case CH_F2:
             case '@':
                 shouldNotBeep = toggleScratchValueAtPos(cursorX, cursorY, 2);
+                if (shouldNotBeep)
+                    shouldSave = true;
                 break;
                 
             case CH_F3:
             case '#':
                 shouldNotBeep = toggleScratchValueAtPos(cursorX, cursorY, 3);
+                if (shouldNotBeep)
+                    shouldSave = true;
                 break;
                 
             case CH_F4:
             case '$':
                 shouldNotBeep = toggleScratchValueAtPos(cursorX, cursorY, 4);
+                if (shouldNotBeep)
+                    shouldSave = true;
                 break;
                 
             case CH_F5:
             case '%':
                 shouldNotBeep = toggleScratchValueAtPos(cursorX, cursorY, 5);
+                if (shouldNotBeep)
+                    shouldSave = true;
                 break;
                 
             case CH_F6:
             case '^':
                 shouldNotBeep = toggleScratchValueAtPos(cursorX, cursorY, 6);
+                if (shouldNotBeep)
+                    shouldSave = true;
                 break;
                 
             case CH_F7:
             case '&':
                 shouldNotBeep = toggleScratchValueAtPos(cursorX, cursorY, 7);
+                if (shouldNotBeep)
+                    shouldSave = true;
                 break;
                 
             case CH_F8:
             case '*':
                 shouldNotBeep = toggleScratchValueAtPos(cursorX, cursorY, 8);
+                if (shouldNotBeep)
+                    shouldSave = true;
                 break;
                 
             case CH_F9:
             case '(':
                 shouldNotBeep = toggleScratchValueAtPos(cursorX, cursorY, 9);
+                if (shouldNotBeep)
+                    shouldSave = true;
                 break;
                 
             case 'u':

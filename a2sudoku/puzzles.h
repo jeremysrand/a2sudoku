@@ -9,6 +9,7 @@
 
 #include <stdbool.h>
 #include <stdint.h>
+#include <stdio.h>
 
 
 #ifndef __a2sudoku__puzzles__
@@ -49,6 +50,10 @@ extern struct tPuzzle *getRandomPuzzle(tDifficulty difficulty);
 extern tSquareVal getStartValueAtPos(struct tPuzzle *puzzle, tPos x, tPos y);
 
 extern bool checkValueAtPos(struct tPuzzle *puzzle, tSquareVal val, tPos x, tPos y);
+
+extern void savePuzzle(struct tPuzzle *puzzle, FILE *saveFile);
+
+extern struct tPuzzle *loadPuzzle(FILE *saveFile);
 
 
 #endif /* defined(__a2sudoku__puzzles__) */

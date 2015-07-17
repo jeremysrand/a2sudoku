@@ -129,3 +129,18 @@ bool checkValueAtPos(tPuzzle *puzzle, tSquareVal val, tPos x, tPos y)
 {
     return (PUZZLE_SOLVED_VAL(PUZZLE_SQUARE(puzzle, x, y)) == val);
 }
+
+
+void savePuzzle(tPuzzle *puzzle, FILE *saveFile)
+{
+    fwrite(puzzle, sizeof(*puzzle), 1, saveFile);
+}
+
+
+tPuzzle *loadPuzzle(FILE *saveFile)
+{
+    if (fread(&thePuzzle, sizeof(thePuzzle), 1, saveFile) != 1)
+        return NULL;
+    
+    return &thePuzzle;
+}

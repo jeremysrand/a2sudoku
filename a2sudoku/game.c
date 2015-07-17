@@ -7,6 +7,8 @@
 //
 
 
+#include <conio.h>
+#include <stdio.h>
 #include <string.h>
 
 #include "game.h"
@@ -15,6 +17,7 @@
 
 // Macros
 #define SQUARE_XY(x, y) (theGame.squares[((y) * BOARD_SIZE) + (x)])
+#define SAVE_GAME_FILE "a2sudoku.game"
 
 
 // Typedefs
@@ -80,9 +83,91 @@ void startGame(tDifficulty difficulty, tUpdatePosCallback callback)
                 SQUARE_XY(x, y).knownAtStart = true;
                 SQUARE_XY(x, y).correct = true;
             }
-            refreshPos(x, y);
         }
     }
+}
+
+
+void saveGame(void)
+{
+    FILE *saveFile = fopen(SAVE_GAME_FILE, "wb");
+    if (saveFile != NULL) {
+        bool isValid = true;
+        fwrite(&isValid, sizeof(isValid), 1, saveFile);
+        fwrite(&theGame, sizeof(theGame), 1, saveFile);
+        savePuzzle(theGame.puzzle, saveFile);
+        fclose(saveFile);
+    }
+}
+
+
+void deleteGame(void)
+{
+    // So, I tried using unlink() from unistd.h but it seems it
+    // does nothing on an Apple // with cc65.  Instead, I will
+    // just open the file for writing and close it again which
+    // will leave it empty.  That way, there won't be a saved
+    // game in the file.
+    FILE *saveFile = fopen(SAVE_GAME_FILE, "wb");
+    if (saveFile != NULL) {
+        bool isValid = false;
+        fwrite(&isValid, sizeof(isValid), 1, saveFile);
+        fclose(saveFile);
+    }
+}
+
+
+#undef LOAD_GAME_DEBUG
+bool loadGame(tUpdatePosCallback callback)
+{
+    bool isValid = false;
+    bool result = false;
+    FILE *saveFile= fopen(SAVE_GAME_FILE, "rb");
+    
+    if (saveFile == NULL) {
+#ifdef LOAD_GAME_DEBUG
+        printf("Cannot open save game file\n");
+        cgetc();
+#endif
+        return false;
+    }
+    
+    if ((fread(&isValid, sizeof(isValid), 1, saveFile) != 1) ||
+        (!isValid)) {
+        fclose(saveFile);
+#ifdef LOAD_GAME_DEBUG
+        printf("Save is not valid\n");
+        cgetc();
+#endif
+        return false;
+    }
+    
+    if (fread(&theGame, sizeof(theGame), 1, saveFile) != 1) {
+        fclose(saveFile);
+        deleteGame();
+#ifdef LOAD_GAME_DEBUG
+        printf("Unable to read game from save\n");
+        cgetc();
+#endif
+        return false;
+    }
+    
+    theGame.callback = callback;
+    
+    theGame.puzzle = loadPuzzle(saveFile);
+    
+    fclose(saveFile);
+    deleteGame();
+    
+    if (theGame.puzzle == NULL) {
+#ifdef LOAD_GAME_DEBUG
+        printf("Unable to read puzzle from save\n");
+        cgetc();
+#endif
+        return false;
+    }
+    
+    return true;
 }
 
 
