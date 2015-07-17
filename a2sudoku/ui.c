@@ -198,7 +198,7 @@ bool setOptions(void)
         //               1111111111222222222233333333334
         //      1234567890123456789012345678901234567890
         printf(
-               "           Apple ][ Sudoku\n"
+               "           Apple // Sudoku\n"
                "            By Jeremy Rand\n"
                "\n"
                "Options:\n"
@@ -270,7 +270,7 @@ void displayInstructions(void)
     //               1111111111222222222233333333334
     //      1234567890123456789012345678901234567890
     printf(
-           "           Apple ][ Sudoku\n"
+           "           Apple // Sudoku\n"
            "            By Jeremy Rand\n"
            "\n"
            "The goal is to get the numbers from 1 to"
