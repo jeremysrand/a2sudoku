@@ -256,9 +256,12 @@ bool isSquareInvalid(tPos col, tPos row)
     subSquareYEnd = subSquareYStart + SUBSQUARE_SIZE;
     for (y = subSquareYStart; y < subSquareYEnd; y++) {
         for (x = subSquareXStart; x < subSquareXEnd; x++) {
-            if ((x != col) &&
-                (y != row) &&
-                (value == SQUARE_XY(x, y).value))
+            if (x == col)
+                continue;
+            if (y == col)
+                continue;
+            
+            if (value == SQUARE_XY(x, y).value)
                 return true;
         }
     }
@@ -269,16 +272,74 @@ bool isSquareInvalid(tPos col, tPos row)
 }
 
 
-void refreshInvalid(void)
+void refreshInvalid(tPos col, tPos row, tSquareVal oldValue)
 {
     tPos x, y;
-    tGameSquare *square;
+    tGameSquare *square = &(SQUARE_XY(col, row));
     bool newInvalid;
+    tPos subSquareXStart, subSquareXEnd;
+    tPos subSquareYStart, subSquareYEnd;
+    
+    newInvalid = isSquareInvalid(col, row);
+    
+    if (newInvalid != square->invalid) {
+        square->invalid = newInvalid;
+        refreshPos(col, row);
+    }
+    
+    // If the value was empty, and this square is not invalid,
+    // then nothing more to check.  We couldn't be adding a
+    // new invalid square nor fixing an existing invalid
+    // square.
+    if ((oldValue == EMPTY_SQUARE) &&
+        (!newInvalid))
+        return;
     
     for (y = 0; y < BOARD_SIZE; y++) {
-        for (x = 0; x < BOARD_SIZE; x++) {
-            square = &(SQUARE_XY(x, y));
+        if (y == row)
+            continue;
+        
+        square = &(SQUARE_XY(col, y));
+        if (square->knownAtStart)
+            continue;
+        
+        newInvalid = isSquareInvalid(col, y);
+        
+        if (newInvalid != square->invalid) {
+            square->invalid = newInvalid;
+            refreshPos(col, y);
+        }
+    }
+    
+    for (x = 0; x < BOARD_SIZE; x++) {
+        if (x == col)
+            continue;
+        
+        square = &(SQUARE_XY(x, row));
+        if (square->knownAtStart)
+            continue;
+        
+        newInvalid = isSquareInvalid(x, row);
+        
+        if (newInvalid != square->invalid) {
+            square->invalid = newInvalid;
+            refreshPos(x, row);
+        }
+    }
+    
+    subSquareXStart = ((col / SUBSQUARE_SIZE) * SUBSQUARE_SIZE);
+    subSquareXEnd = subSquareXStart + SUBSQUARE_SIZE;
+    
+    subSquareYStart = ((row / SUBSQUARE_SIZE) * SUBSQUARE_SIZE);
+    subSquareYEnd = subSquareYStart + SUBSQUARE_SIZE;
+    for (y = subSquareYStart; y < subSquareYEnd; y++) {
+        for (x = subSquareXStart; x < subSquareXEnd; x++) {
+            if (x == col)
+                continue;
+            if (y == col)
+                continue;
             
+            square = &(SQUARE_XY(x, y));
             if (square->knownAtStart)
                 continue;
             
@@ -299,6 +360,7 @@ bool setValueAtPos(tPos x, tPos y, tSquareVal val)
     bool update = false;
     bool checkValues = false;
     bool correct;
+    tSquareVal oldValue = EMPTY_SQUARE;
     
     if (square->knownAtStart) {
         return false;
@@ -310,6 +372,7 @@ bool setValueAtPos(tPos x, tPos y, tSquareVal val)
     theGame.undo.y = y;
     
     if (square->value != val) {
+        oldValue = square->value;
         square->value = val;
         update = true;
         checkValues = true;
@@ -332,7 +395,7 @@ bool setValueAtPos(tPos x, tPos y, tSquareVal val)
         refreshPos(x,y);
     
     if (checkValues)
-        refreshInvalid();
+        refreshInvalid(x, y, oldValue);
     
     return true;
 }
@@ -366,6 +429,7 @@ bool undoLastMove(void)
     tPos x = theGame.undo.x;
     tPos y = theGame.undo.y;
     bool correct;
+    tSquareVal oldValue = EMPTY_SQUARE;
     
     if (!theGame.undo.isValid)
         return false;
@@ -379,6 +443,7 @@ bool undoLastMove(void)
     theGame.undo.isValid = false;
     
     if (square->value != theGame.undo.oldSquare.value) {
+        oldValue = square->value;
         square->value = theGame.undo.oldSquare.value;
         update = true;
         checkValues = true;
@@ -401,7 +466,7 @@ bool undoLastMove(void)
         refreshPos(x,y);
     
     if (checkValues)
-        refreshInvalid();
+        refreshInvalid(x, y, oldValue);
     
     return true;
 }
