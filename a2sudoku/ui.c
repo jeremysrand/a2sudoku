@@ -176,6 +176,7 @@ void shutdownUI(void)
 
 void textMode(void)
 {
+    clrscr();
     asm ("STA %w", 0xc051);
 }
 
@@ -251,8 +252,6 @@ bool setOptions(void)
         printf("\n\nSaving options...");
         saveOptions();
     }
-    
-    clrscr();
     
     return shouldUpdate;
 }
@@ -523,8 +522,9 @@ bool playGame(void)
     
     initUI();
     
-    clrscr();
     textMode();
+    
+    printf("\n\nChecking for a saved puzzle...");
     
     if (loadGame(updatePos)) {
         bool gotAnswer = false;
@@ -571,7 +571,6 @@ bool playGame(void)
     
     while (true) {
         bool shouldNotBeep = true;
-        bool shouldRefresh = false;
         
         if (isPuzzleSolved()) {
             youWon();
@@ -591,7 +590,8 @@ bool playGame(void)
             case 'o':
             case 'O':
                 textMode();
-                shouldRefresh = setOptions();
+                if (setOptions())
+                    refreshAllPos();
                 graphicsMode();
                 break;
                 
@@ -762,8 +762,6 @@ bool playGame(void)
         if (!shouldNotBeep) {
             printf("\007");
         }
-        if (shouldRefresh)
-            refreshAllPos();
     }
     
     return false;
