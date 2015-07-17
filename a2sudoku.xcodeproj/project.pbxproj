@@ -29,12 +29,14 @@
 		9DEE9C3F1B5837B0003E353E /* hard.puzzles */ = {isa = PBXFileReference; lastKnownFileType = file; path = hard.puzzles; sourceTree = "<group>"; };
 		9DEE9C401B5837B0003E353E /* medium.puzzles */ = {isa = PBXFileReference; lastKnownFileType = file; path = medium.puzzles; sourceTree = "<group>"; };
 		9DEE9C411B583FE4003E353E /* puzzles.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = puzzles.txt; sourceTree = "<group>"; };
+		9DEE9C431B588B93003E353E /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
 		9DEE9C1F1B569637003E353E = {
 			isa = PBXGroup;
 			children = (
+				9DEE9C431B588B93003E353E /* README.md */,
 				9DEE9C251B569637003E353E /* a2sudoku */,
 			);
 			sourceTree = "<group>";
