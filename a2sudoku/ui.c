@@ -282,14 +282,14 @@ void displayInstructions(void)
            "toggle a scratch value.  Press 0 to\n"
            "clear a square.  Play ends when the\n"
            "puzzle is solved.\n"
-           "\n"
            "    Difficulty          : %s\n"
            "    Show invalid values : %s\n"
            "    Show wrong values   : %s\n"
            "\n"
            "Press escape or Q to quit at any time.\n"
            "Press O to change options.\n"
-           "Press R to start a new game.\n"
+           "Press R to restart the current game.\n"
+           "Press N to start a new game.\n"
            "Press H to see this info again.\n"
            "Press U to undo your last move.\n"
            "  Press O to change options now or any\n"
@@ -597,6 +597,12 @@ bool playGame(void)
                 
             case 'r':
             case 'R':
+                shouldSave = false;
+                restartGame();
+                break;
+                
+            case 'n':
+            case 'N':
                 return true;
                 
             case 'q':

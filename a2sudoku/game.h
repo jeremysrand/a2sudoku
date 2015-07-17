@@ -43,6 +43,8 @@ extern bool toggleScratchValueAtPos(tPos x, tPos y, tSquareVal val);
 // Returns false if the last move cannot be undone.
 extern bool undoLastMove(void);
 
+extern void restartGame(void);
+
 extern void saveGame(void);
 
 extern bool loadGame(tUpdatePosCallback callback);

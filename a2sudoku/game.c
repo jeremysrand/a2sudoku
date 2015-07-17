@@ -66,6 +66,32 @@ void refreshPos(tPos x, tPos y)
 }
 
 
+void restartGame(void)
+{
+    tPos x, y;
+    tGameSquare *square;
+    
+    for (y = 0; y < BOARD_SIZE; y++) {
+        for (x = 0; x < BOARD_SIZE; x++) {
+            square = &(SQUARE_XY(x, y));
+            
+            if (square->knownAtStart)
+                continue;
+            
+            if ((square->value == EMPTY_SQUARE) &&
+                (square->scratchValues == 0))
+                continue;
+            
+            square->value = EMPTY_SQUARE;
+            square->scratchValues = 0;
+            square->correct = false;
+            square->invalid = false;
+            refreshPos(x, y);
+        }
+    }
+}
+
+
 void startGame(tDifficulty difficulty, tUpdatePosCallback callback)
 {
     tPos x, y;
