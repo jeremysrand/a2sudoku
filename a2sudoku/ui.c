@@ -516,6 +516,7 @@ void youWon(void)
 
 bool playGame(void)
 {
+    static bool firstGame = true;
     bool shouldSave = false;
     bool gameLoaded = false;
     char ch;
@@ -523,33 +524,35 @@ bool playGame(void)
     initUI();
     
     textMode();
-    
-    printf("\n\nChecking for a saved puzzle...");
-    
-    if (loadGame(updatePos)) {
-        bool gotAnswer = false;
+    if (firstGame) {
+        firstGame = false;
+        printf("\n\nChecking for a saved puzzle...");
         
-        printf("\n\nYou have a saved puzzle!\n    Would you like to continue it (Y/N)");
-        
-        while (!gotAnswer) {
-            ch = cgetc();
-            switch (ch) {
-                case 'y':
-                case 'Y':
-                    printf("\n\nLoading your saved puzzle");
-                    gameLoaded = true;
-                    gotAnswer = true;
-                    shouldSave = true;
-                    break;
-                    
-                case 'n':
-                case 'N':
-                    gotAnswer = true;
-                    break;
-                    
-                default:
-                    printf("\007");
-                    break;
+        if (loadGame(updatePos)) {
+            bool gotAnswer = false;
+            
+            printf("\n\nYou have a saved puzzle!\n    Would you like to continue it (Y/N)");
+            
+            while (!gotAnswer) {
+                ch = cgetc();
+                switch (ch) {
+                    case 'y':
+                    case 'Y':
+                        printf("\n\nLoading your saved puzzle");
+                        gameLoaded = true;
+                        gotAnswer = true;
+                        shouldSave = true;
+                        break;
+                        
+                    case 'n':
+                    case 'N':
+                        gotAnswer = true;
+                        break;
+                        
+                    default:
+                        printf("\007");
+                        break;
+                }
             }
         }
     }

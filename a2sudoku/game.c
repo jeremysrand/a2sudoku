@@ -17,6 +17,7 @@
 
 // Macros
 #define SQUARE_XY(x, y) (theGame.squares[((y) * BOARD_SIZE) + (x)])
+#define PREV_SQUARE_XY(x, y) (theGame.prevSquares[((y) * BOARD_SIZE) + (x)])
 #define SAVE_GAME_FILE "a2sudoku.game"
 
 
@@ -31,19 +32,12 @@ typedef struct tGameSquare {
 } tGameSquare;
 
 
-typedef struct tUndoMove {
-    tGameSquare oldSquare;
-    tPos x;
-    tPos y;
-    bool isValid;
-} tUndoMove;
-
-
 typedef struct tGame {
     tGameSquare squares[BOARD_SIZE * BOARD_SIZE];
+    tGameSquare prevSquares[BOARD_SIZE * BOARD_SIZE];
     struct tPuzzle *puzzle;
     tUpdatePosCallback callback;
-    tUndoMove undo;
+    bool undoValid;
 } tGame;
 
 
@@ -89,6 +83,8 @@ void restartGame(void)
             refreshPos(x, y);
         }
     }
+    
+    theGame.undoValid = false;
 }
 
 
@@ -258,7 +254,7 @@ bool isSquareInvalid(tPos col, tPos row)
         for (x = subSquareXStart; x < subSquareXEnd; x++) {
             if (x == col)
                 continue;
-            if (y == col)
+            if (y == row)
                 continue;
             
             if (value == SQUARE_XY(x, y).value)
@@ -272,11 +268,12 @@ bool isSquareInvalid(tPos col, tPos row)
 }
 
 
-void refreshInvalid(tPos col, tPos row, tSquareVal oldValue)
+void refreshNeighbours(tPos col, tPos row, tSquareVal newValue, tSquareVal oldValue)
 {
     tPos x, y;
     tGameSquare *square = &(SQUARE_XY(col, row));
     bool newInvalid;
+    bool checkInvalid = true;
     tPos subSquareXStart, subSquareXEnd;
     tPos subSquareYStart, subSquareYEnd;
     
@@ -293,7 +290,7 @@ void refreshInvalid(tPos col, tPos row, tSquareVal oldValue)
     // square.
     if ((oldValue == EMPTY_SQUARE) &&
         (!newInvalid))
-        return;
+        checkInvalid = false;
     
     for (y = 0; y < BOARD_SIZE; y++) {
         if (y == row)
@@ -302,11 +299,18 @@ void refreshInvalid(tPos col, tPos row, tSquareVal oldValue)
         square = &(SQUARE_XY(col, y));
         if (square->knownAtStart)
             continue;
+        if (checkInvalid) {
+            newInvalid = isSquareInvalid(col, y);
+            
+            if (newInvalid != square->invalid) {
+                square->invalid = newInvalid;
+                refreshPos(col, y);
+            }
+        }
         
-        newInvalid = isSquareInvalid(col, y);
-        
-        if (newInvalid != square->invalid) {
-            square->invalid = newInvalid;
+        if ((newValue != EMPTY_SQUARE) &&
+            (SCRATCH_TEST(square->scratchValues, newValue))) {
+            square->scratchValues ^= (0x1 << newValue);
             refreshPos(col, y);
         }
     }
@@ -319,10 +323,18 @@ void refreshInvalid(tPos col, tPos row, tSquareVal oldValue)
         if (square->knownAtStart)
             continue;
         
-        newInvalid = isSquareInvalid(x, row);
+        if (checkInvalid) {
+            newInvalid = isSquareInvalid(x, row);
+            
+            if (newInvalid != square->invalid) {
+                square->invalid = newInvalid;
+                refreshPos(x, row);
+            }
+        }
         
-        if (newInvalid != square->invalid) {
-            square->invalid = newInvalid;
+        if ((newValue != EMPTY_SQUARE) &&
+            (SCRATCH_TEST(square->scratchValues, newValue))) {
+            square->scratchValues ^= (0x1 << newValue);
             refreshPos(x, row);
         }
     }
@@ -336,17 +348,25 @@ void refreshInvalid(tPos col, tPos row, tSquareVal oldValue)
         for (x = subSquareXStart; x < subSquareXEnd; x++) {
             if (x == col)
                 continue;
-            if (y == col)
+            if (y == row)
                 continue;
             
             square = &(SQUARE_XY(x, y));
             if (square->knownAtStart)
                 continue;
             
-            newInvalid = isSquareInvalid(x, y);
+            if (checkInvalid) {
+                newInvalid = isSquareInvalid(x, y);
+                
+                if (newInvalid != square->invalid) {
+                    square->invalid = newInvalid;
+                    refreshPos(x, y);
+                }
+            }
             
-            if (newInvalid != square->invalid) {
-                square->invalid = newInvalid;
+            if ((newValue != EMPTY_SQUARE) &&
+                (SCRATCH_TEST(square->scratchValues, newValue))) {
+                square->scratchValues ^= (0x1 << newValue);
                 refreshPos(x, y);
             }
         }
@@ -366,10 +386,8 @@ bool setValueAtPos(tPos x, tPos y, tSquareVal val)
         return false;
     }
     
-    theGame.undo.isValid = true;
-    memcpy(&(theGame.undo.oldSquare), square, sizeof(*square));
-    theGame.undo.x = x;
-    theGame.undo.y = y;
+    theGame.undoValid = true;
+    memcpy(theGame.prevSquares, theGame.squares, sizeof(theGame.squares));
     
     if (square->value != val) {
         oldValue = square->value;
@@ -395,7 +413,7 @@ bool setValueAtPos(tPos x, tPos y, tSquareVal val)
         refreshPos(x,y);
     
     if (checkValues)
-        refreshInvalid(x, y, oldValue);
+        refreshNeighbours(x, y, val, oldValue);
     
     return true;
 }
@@ -409,10 +427,8 @@ bool toggleScratchValueAtPos(tPos x, tPos y, tSquareVal val)
         return false;
     }
     
-    theGame.undo.isValid = true;
-    memcpy(&(theGame.undo.oldSquare), square, sizeof(*square));
-    theGame.undo.x = x;
-    theGame.undo.y = y;
+    theGame.undoValid = true;
+    memcpy(theGame.prevSquares, theGame.squares, sizeof(theGame.squares));
     
     square->scratchValues ^= (0x1 << val);
     refreshPos(x, y);
@@ -424,49 +440,30 @@ bool toggleScratchValueAtPos(tPos x, tPos y, tSquareVal val)
 bool undoLastMove(void)
 {
     tGameSquare *square;
-    bool update = false;
-    bool checkValues = false;
-    tPos x = theGame.undo.x;
-    tPos y = theGame.undo.y;
-    bool correct;
-    tSquareVal oldValue = EMPTY_SQUARE;
+    tGameSquare *prevSquare;
+    tPos x, y;
     
-    if (!theGame.undo.isValid)
+    if (!theGame.undoValid)
         return false;
     
-    square = &(SQUARE_XY(x, y));
-    
-    if (square->knownAtStart) {
-        return false;
-    }
-    
-    theGame.undo.isValid = false;
-    
-    if (square->value != theGame.undo.oldSquare.value) {
-        oldValue = square->value;
-        square->value = theGame.undo.oldSquare.value;
-        update = true;
-        checkValues = true;
-    }
-    
-    if (square->scratchValues != theGame.undo.oldSquare.scratchValues) {
-        square->scratchValues = theGame.undo.oldSquare.scratchValues;
-        update = true;
-    }
-    
-    if (checkValues) {
-        correct = checkValueAtPos(theGame.puzzle, square->value, x, y);
-        if (square->correct != correct) {
-            square->correct = correct;
-            update = true;
+    for (y = 0; y < BOARD_SIZE; y++) {
+        for (x = 0; x < BOARD_SIZE; x++) {
+            square = &(SQUARE_XY(x, y));
+            
+            if (square->knownAtStart)
+                continue;
+            
+            prevSquare = &(PREV_SQUARE_XY(x, y));
+            if ((square->value != prevSquare->value) ||
+                (square->scratchValues != prevSquare->scratchValues) ||
+                (square->invalid != prevSquare->invalid)) {
+                memcpy(square, prevSquare, sizeof(*square));
+                refreshPos(x, y);
+            }
         }
     }
     
-    if (update)
-        refreshPos(x,y);
-    
-    if (checkValues)
-        refreshInvalid(x, y, oldValue);
+    theGame.undoValid = false;
     
     return true;
 }
