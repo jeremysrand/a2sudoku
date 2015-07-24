@@ -520,6 +520,7 @@ bool playGame(void)
     bool shouldSave = false;
     bool gameLoaded = false;
     char ch;
+    uint8_t *button0 = (uint8_t *)0xc061; // Address of button #0 or open apple
     
     initUI();
     
@@ -621,7 +622,7 @@ bool playGame(void)
                 
             case 'i':
             case 'I':
-            case CH_CURS_UP:
+            case 0x0B:  // Only defined with apple2enh targts, CH_CURS_UP:
                 if (cursorY != 0) {
                     cursorY--;
                     refreshPos(cursorX, cursorY);
@@ -663,7 +664,7 @@ bool playGame(void)
                 
             case 'm':
             case 'M':
-            case CH_CURS_DOWN:
+            case 0x0A:  // Only defined with apple2enh targts, CH_CURS_DOWN:
                 if (cursorY < BOARD_SIZE - 1) {
                     cursorY++;
                     refreshPos(cursorX, cursorY);
@@ -685,68 +686,62 @@ bool playGame(void)
             case '7':
             case '8':
             case '9':
-                shouldNotBeep = setValueAtPos(cursorX, cursorY, ch - '0');
+                if (*button0 > 127)
+                    shouldNotBeep = toggleScratchValueAtPos(cursorX, cursorY, ch - '0');
+                else
+                    shouldNotBeep = setValueAtPos(cursorX, cursorY, ch - '0');
                 if (shouldNotBeep)
                     shouldSave = true;
                 break;
                 
-            case CH_F1:
             case '!':
                 shouldNotBeep = toggleScratchValueAtPos(cursorX, cursorY, 1);
                 if (shouldNotBeep)
                     shouldSave = true;
                 break;
                 
-            case CH_F2:
             case '@':
                 shouldNotBeep = toggleScratchValueAtPos(cursorX, cursorY, 2);
                 if (shouldNotBeep)
                     shouldSave = true;
                 break;
                 
-            case CH_F3:
             case '#':
                 shouldNotBeep = toggleScratchValueAtPos(cursorX, cursorY, 3);
                 if (shouldNotBeep)
                     shouldSave = true;
                 break;
                 
-            case CH_F4:
             case '$':
                 shouldNotBeep = toggleScratchValueAtPos(cursorX, cursorY, 4);
                 if (shouldNotBeep)
                     shouldSave = true;
                 break;
                 
-            case CH_F5:
             case '%':
                 shouldNotBeep = toggleScratchValueAtPos(cursorX, cursorY, 5);
                 if (shouldNotBeep)
                     shouldSave = true;
                 break;
                 
-            case CH_F6:
             case '^':
                 shouldNotBeep = toggleScratchValueAtPos(cursorX, cursorY, 6);
                 if (shouldNotBeep)
                     shouldSave = true;
                 break;
                 
-            case CH_F7:
             case '&':
                 shouldNotBeep = toggleScratchValueAtPos(cursorX, cursorY, 7);
                 if (shouldNotBeep)
                     shouldSave = true;
                 break;
                 
-            case CH_F8:
             case '*':
                 shouldNotBeep = toggleScratchValueAtPos(cursorX, cursorY, 8);
                 if (shouldNotBeep)
                     shouldSave = true;
                 break;
                 
-            case CH_F9:
             case '(':
                 shouldNotBeep = toggleScratchValueAtPos(cursorX, cursorY, 9);
                 if (shouldNotBeep)
