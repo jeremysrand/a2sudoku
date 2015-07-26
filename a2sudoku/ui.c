@@ -22,12 +22,12 @@ extern char a2e_hi;
 
 
 // Macros and defines
-#define SQUARE_WIDTH 29
+#define SQUARE_WIDTH 28
 #define SQUARE_HEIGHT 19
 
-#define THICK_LINE_WIDTH 2
-#define THIN_LINE_WIDTH 1
-#define THICK_LINE_HEIGHT 2
+#define THICK_LINE_WIDTH 4
+#define THIN_LINE_WIDTH 2
+#define THICK_LINE_HEIGHT 3
 #define THIN_LINE_HEIGHT 1
 
 #define TEXT_OFFSET_X 12
