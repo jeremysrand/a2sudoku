@@ -10,6 +10,7 @@
 #include <conio.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <tgi.h>
 #include <tgi/tgi-mode.h>
 
@@ -44,9 +45,6 @@ extern char a2e_hi;
 #define TOTAL_HEIGHT ((BOARD_SIZE * SQUARE_HEIGHT) + \
                      ((BOARD_SIZE + 1) * THIN_LINE_HEIGHT) + \
                      (((BOARD_SIZE / SUBSQUARE_SIZE) + 1) * (THICK_LINE_HEIGHT - THIN_LINE_HEIGHT)))
-
-#define WON_WIDTH 100
-#define WON_HEIGHT 55
 
 #define SCRATCH_WIDTH 9
 #define SCRATCH_HEIGHT 6
@@ -497,18 +495,41 @@ void updatePos(tPos x, tPos y, tSquareVal val, tScratchValues scratch, bool corr
 
 void youWon(void)
 {
-    int wonX = (TOTAL_WIDTH - WON_WIDTH) / 2;
-    int wonY = (TOTAL_HEIGHT - WON_HEIGHT) / 2;
-    char *line1 = "You solved it!";
+    int line1Width;
+    int line2Width;
+    int wonWidth;
+    int wonHeight;
+    int wonX;
+    int wonY;
+    static char line1[80];
     char *line2 = "Press any key";
+    time_t solutionTime = timeToSolve();
     int textHeight = tgi_textheight(line1);
     
+    if (solutionTime == 0xffffffff) {
+        snprintf(line1, sizeof(line1), "You solved it!");
+    } else {
+        snprintf(line1, sizeof(line1), "You solved it in %lu minutes!", solutionTime / 60);
+    }
+    
+    line1Width = strlen(line1) * 6;
+    line2Width = strlen(line2) * 6;
+    
+    wonHeight = textHeight * 7;
+    wonWidth = line1Width;
+    if (wonWidth < line2Width)
+        wonWidth = line2Width;
+    wonWidth += 20;
+    
+    wonX = (TOTAL_WIDTH - wonWidth) / 2;
+    wonY = (TOTAL_HEIGHT - wonHeight) / 2;
+    
     tgi_setcolor(COLOR_BLACK);
-    tgi_bar(wonX, wonY, wonX + WON_WIDTH, wonY + WON_HEIGHT);
+    tgi_bar(wonX, wonY, wonX + wonWidth, wonY + wonHeight);
     
     tgi_setcolor(COLOR_WHITE);
-    tgi_outtextxy(wonX + 10, wonY + (textHeight * 2), line1);
-    tgi_outtextxy(wonX + 7, wonY + (textHeight * 4), line2);
+    tgi_outtextxy((TOTAL_WIDTH - line1Width) / 2, wonY + (textHeight * 2), line1);
+    tgi_outtextxy((TOTAL_WIDTH - line2Width) / 2, wonY + (textHeight * 4), line2);
     
     cgetc();
 }

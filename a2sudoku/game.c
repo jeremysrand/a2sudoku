@@ -38,6 +38,7 @@ typedef struct tGame {
     struct tPuzzle *puzzle;
     tUpdatePosCallback callback;
     bool undoValid;
+    time_t startTime;
 } tGame;
 
 
@@ -85,6 +86,7 @@ void restartGame(void)
     }
     
     theGame.undoValid = false;
+    theGame.startTime = _systime();
 }
 
 
@@ -107,6 +109,8 @@ void startGame(tDifficulty difficulty, tUpdatePosCallback callback)
             }
         }
     }
+    
+    theGame.startTime = _systime();
 }
 
 
@@ -116,6 +120,12 @@ void saveGame(void)
     if (saveFile != NULL) {
         bool isValid = true;
         fwrite(&isValid, sizeof(isValid), 1, saveFile);
+        
+        // Change the start time into an elapsed time before saving...
+        
+        if (theGame.startTime != 0xffffffff) {
+            theGame.startTime = _systime() - theGame.startTime;
+        }
         fwrite(&theGame, sizeof(theGame), 1, saveFile);
         savePuzzle(theGame.puzzle, saveFile);
         fclose(saveFile);
@@ -176,6 +186,11 @@ bool loadGame(tUpdatePosCallback callback)
     
     theGame.callback = callback;
     
+    // The saved start time is an elapsed time.  Convert it back into a start time relative to now.
+    if (theGame.startTime != 0xffffffff) {
+        theGame.startTime = _systime() - theGame.startTime;
+    }
+    
     theGame.puzzle = loadPuzzle(saveFile);
     
     fclose(saveFile);
@@ -216,6 +231,15 @@ bool isPuzzleSolved(void)
         }
     }
     return true;
+}
+
+
+time_t timeToSolve(void)
+{
+    if (theGame.startTime == 0xffffffff)
+        return theGame.startTime;
+    
+    return _systime() - theGame.startTime;
 }
 
 

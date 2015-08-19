@@ -7,6 +7,7 @@
 //
 
 
+#include <time.h>
 #include "puzzles.h"
 
 #ifndef __a2sudoku__game__
@@ -33,6 +34,8 @@ extern void refreshAllPos(void);
 extern void refreshPos(tPos x, tPos y);
 
 extern bool isPuzzleSolved(void);
+
+extern time_t timeToSolve(void);
 
 // Returns false if unable to set the value for some reason
 extern bool setValueAtPos(tPos x, tPos y, tSquareVal val);
