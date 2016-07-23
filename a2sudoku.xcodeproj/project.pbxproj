@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXFileReference section */
+		9D6B474E1D43BD3100F6D704 /* a2sudoku.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = a2sudoku.png; sourceTree = "<group>"; };
 		9DEE9C261B569637003E353E /* main.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
 		9DEE9C271B569637003E353E /* Makefile */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
 		9DEE9C291B569637003E353E /* AppleCommander.jar */ = {isa = PBXFileReference; lastKnownFileType = archive.jar; name = AppleCommander.jar; path = make/AppleCommander.jar; sourceTree = "<group>"; };
@@ -33,10 +34,19 @@
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
+		9D6B474D1D43BD1900F6D704 /* screenshots */ = {
+			isa = PBXGroup;
+			children = (
+				9D6B474E1D43BD3100F6D704 /* a2sudoku.png */,
+			);
+			name = screenshots;
+			sourceTree = "<group>";
+		};
 		9DEE9C1F1B569637003E353E = {
 			isa = PBXGroup;
 			children = (
 				9DEE9C431B588B93003E353E /* README.md */,
+				9D6B474D1D43BD1900F6D704 /* screenshots */,
 				9DEE9C251B569637003E353E /* a2sudoku */,
 			);
 			sourceTree = "<group>";
