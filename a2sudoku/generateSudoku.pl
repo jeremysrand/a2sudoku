@@ -124,17 +124,17 @@ while (<>) {
     }
 }
 
-open(FILE, ">easy.puzzles") || die "Unable to open easy.puzzles";
+open(FILE, ">tocopy/easy.puzzles.bin") || die "Unable to open easy.puzzles.bin";
 print FILE pack("v", $#easy + 1);
 print FILE join("", @easy);
 close (FILE);
 
-open(FILE, ">medium.puzzles") || die "Unable to open medium.puzzles";
+open(FILE, ">tocopy/medium.puzzles.bin") || die "Unable to open medium.puzzles.bin";
 print FILE pack("v", $#medium + 1);
 print FILE join("", @medium);
 close (FILE);
 
-open(FILE, ">hard.puzzles") || die "Unable to open hard.puzzles";
+open(FILE, ">tocopy/hard.puzzles.bin") || die "Unable to open hard.puzzles.bin";
 print FILE pack("v", $#hard + 1);
 print FILE join("", @hard);
 close (FILE);

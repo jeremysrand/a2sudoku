@@ -16,10 +16,7 @@
 
 #include "game.h"
 #include "ui.h"
-
-
-// Extern symbols for graphics drivers
-extern char a2e_hi;
+#include "drivers/a2_hires_drv.h"
 
 
 // Macros and defines
@@ -129,7 +126,7 @@ void initUI(void)
         return;
     
     // Install drivers
-    tgi_install(&a2e_hi);
+    tgi_install(&a2_hires_drv);
     
     tgi_init();
     
