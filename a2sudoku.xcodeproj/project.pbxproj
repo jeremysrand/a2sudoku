@@ -44,6 +44,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+<<<<<<< HEAD
 		9D3FF46520D9FF55006A5F8A /* doNotBuild */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = doNotBuild; sourceTree = BUILT_PRODUCTS_DIR; };
 		9D3FF46A20D9FF55006A5F8A /* Makefile */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
 		9D3FF46D20D9FF55006A5F8A /* AppleCommander.jar */ = {isa = PBXFileReference; lastKnownFileType = archive.jar; name = AppleCommander.jar; path = make/AppleCommander.jar; sourceTree = "<group>"; };
@@ -66,6 +67,32 @@
 		9D3FF49320D9FFD5006A5F8A /* puzzles.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = puzzles.txt; sourceTree = "<group>"; };
 		9D3FF49420D9FFD5006A5F8A /* ui.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ui.h; sourceTree = "<group>"; };
 		9D3FF49B20DA0106006A5F8A /* tocopy */ = {isa = PBXFileReference; lastKnownFileType = folder; path = tocopy; sourceTree = "<group>"; };
+=======
+		9D6B474E1D43BD3100F6D704 /* a2sudoku.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = a2sudoku.png; sourceTree = "<group>"; };
+		9DEE9C261B569637003E353E /* main.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
+		9DEE9C271B569637003E353E /* Makefile */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
+		9DEE9C291B569637003E353E /* AppleCommander.jar */ = {isa = PBXFileReference; lastKnownFileType = archive.jar; name = AppleCommander.jar; path = make/AppleCommander.jar; sourceTree = "<group>"; };
+		9DEE9C2A1B569637003E353E /* createDiskImage */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; name = createDiskImage; path = make/createDiskImage; sourceTree = "<group>"; };
+		9DEE9C2B1B569637003E353E /* DevApple.vii */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; name = DevApple.vii; path = make/DevApple.vii; sourceTree = "<group>"; };
+		9DEE9C2C1B569637003E353E /* dos33_template.dsk */ = {isa = PBXFileReference; lastKnownFileType = file; name = dos33_template.dsk; path = make/dos33_template.dsk; sourceTree = "<group>"; };
+		9DEE9C2D1B569637003E353E /* head.mk */ = {isa = PBXFileReference; lastKnownFileType = text; name = head.mk; path = make/head.mk; sourceTree = "<group>"; };
+		9DEE9C2E1B569637003E353E /* prodos_template.dsk */ = {isa = PBXFileReference; lastKnownFileType = file; name = prodos_template.dsk; path = make/prodos_template.dsk; sourceTree = "<group>"; };
+		9DEE9C2F1B569637003E353E /* tail.mk */ = {isa = PBXFileReference; lastKnownFileType = text; name = tail.mk; path = make/tail.mk; sourceTree = "<group>"; };
+		9DEE9C301B569638003E353E /* V2Make.scpt */ = {isa = PBXFileReference; lastKnownFileType = file; name = V2Make.scpt; path = make/V2Make.scpt; sourceTree = "<group>"; };
+		9DEE9C361B569717003E353E /* puzzles.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = puzzles.c; sourceTree = "<group>"; };
+		9DEE9C371B569717003E353E /* puzzles.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = puzzles.h; sourceTree = "<group>"; };
+		9DEE9C381B56979C003E353E /* game.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = game.c; sourceTree = "<group>"; };
+		9DEE9C391B56979C003E353E /* game.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = game.h; sourceTree = "<group>"; };
+		9DEE9C3A1B56CFC0003E353E /* ui.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = ui.c; sourceTree = "<group>"; };
+		9DEE9C3B1B56CFC0003E353E /* ui.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ui.h; sourceTree = "<group>"; };
+		9DEE9C3C1B570AED003E353E /* a2e.hi.s */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.asm; path = a2e.hi.s; sourceTree = "<group>"; };
+		9DEE9C3D1B582C3A003E353E /* generateSudoku.pl */ = {isa = PBXFileReference; lastKnownFileType = text.script.perl; path = generateSudoku.pl; sourceTree = "<group>"; };
+		9DEE9C3E1B5837B0003E353E /* easy.puzzles */ = {isa = PBXFileReference; lastKnownFileType = file; path = easy.puzzles; sourceTree = "<group>"; };
+		9DEE9C3F1B5837B0003E353E /* hard.puzzles */ = {isa = PBXFileReference; lastKnownFileType = file; path = hard.puzzles; sourceTree = "<group>"; };
+		9DEE9C401B5837B0003E353E /* medium.puzzles */ = {isa = PBXFileReference; lastKnownFileType = file; path = medium.puzzles; sourceTree = "<group>"; };
+		9DEE9C411B583FE4003E353E /* puzzles.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = puzzles.txt; sourceTree = "<group>"; };
+		9DEE9C431B588B93003E353E /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+>>>>>>> 34d429b207d1fd2544297919577eff52e46b5deb
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,6 +107,7 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+<<<<<<< HEAD
 		9D3FF45B20D9FF55006A5F8A = {
 			isa = PBXGroup;
 			children = (
@@ -93,6 +121,22 @@
 			isa = PBXGroup;
 			children = (
 				9D3FF46520D9FF55006A5F8A /* doNotBuild */,
+=======
+		9D6B474D1D43BD1900F6D704 /* screenshots */ = {
+			isa = PBXGroup;
+			children = (
+				9D6B474E1D43BD3100F6D704 /* a2sudoku.png */,
+			);
+			name = screenshots;
+			sourceTree = "<group>";
+		};
+		9DEE9C1F1B569637003E353E = {
+			isa = PBXGroup;
+			children = (
+				9DEE9C431B588B93003E353E /* README.md */,
+				9D6B474D1D43BD1900F6D704 /* screenshots */,
+				9DEE9C251B569637003E353E /* a2sudoku */,
+>>>>>>> 34d429b207d1fd2544297919577eff52e46b5deb
 			);
 			name = Products;
 			sourceTree = "<group>";
