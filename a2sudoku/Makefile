@@ -235,6 +235,7 @@ COPYDIRS=tocopy
 gen: genfiles
 
 genfiles: puzzles.txt
+	mkdir -p tocopy
 	./generateSudoku.pl puzzles.txt
 	touch genfiles
 
@@ -242,7 +243,8 @@ genfiles: puzzles.txt
 # add rules in genclean to remove those generated files when you
 # clean your build.
 genclean:
-	rm -f tocopy/* genfiles
+	rm -rf tocopy
+	rm -f genfiles
 
 # Do not change anything else below here...
 include make/tail.mk
