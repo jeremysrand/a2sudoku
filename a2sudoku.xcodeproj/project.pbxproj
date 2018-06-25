@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9D3B394020E082580055431C /* mouseWrapper.c in Sources */ = {isa = PBXBuildFile; fileRef = 9D3B393E20E082580055431C /* mouseWrapper.c */; };
 		9D3FF4AF20DA05C2006A5F8A /* AppleCommander.jar in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D3FF4AE20DA05C2006A5F8A /* AppleCommander.jar */; };
 		9D3FF4B120DA05C2006A5F8A /* createDiskImage in CopyFiles */ = {isa = PBXBuildFile; fileRef = 9D3FF4B020DA05C2006A5F8A /* createDiskImage */; };
 		9D3FF4B320DA05C2006A5F8A /* DevApple.vii in CopyFiles */ = {isa = PBXBuildFile; fileRef = 9D3FF4B220DA05C2006A5F8A /* DevApple.vii */; };
@@ -44,6 +45,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		9D3B393D20E0821B0055431C /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		9D3B393E20E082580055431C /* mouseWrapper.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = mouseWrapper.c; sourceTree = "<group>"; };
+		9D3B393F20E082580055431C /* mouseWrapper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = mouseWrapper.h; sourceTree = "<group>"; };
 		9D3FF4A620DA05C2006A5F8A /* doNotBuild */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = doNotBuild; sourceTree = BUILT_PRODUCTS_DIR; };
 		9D3FF4AE20DA05C2006A5F8A /* AppleCommander.jar */ = {isa = PBXFileReference; lastKnownFileType = archive.jar; name = AppleCommander.jar; path = make/AppleCommander.jar; sourceTree = "<group>"; };
 		9D3FF4B020DA05C2006A5F8A /* createDiskImage */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; name = createDiskImage; path = make/createDiskImage; sourceTree = "<group>"; };
@@ -85,6 +89,7 @@
 			children = (
 				9D3FF4CA20DA05E4006A5F8A /* a2sudoku.png */,
 				9D3FF4C920DA05E3006A5F8A /* README.md */,
+				9D3B393D20E0821B0055431C /* LICENSE */,
 				9D3FF4A820DA05C2006A5F8A /* a2sudoku */,
 				9D3FF4A720DA05C2006A5F8A /* Products */,
 			);
@@ -107,6 +112,8 @@
 				9D3FF4CC20DA05F2006A5F8A /* main.c */,
 				9D3FF4CF20DA05F3006A5F8A /* ui.c */,
 				9D3FF4D420DA05F3006A5F8A /* ui.h */,
+				9D3B393E20E082580055431C /* mouseWrapper.c */,
+				9D3B393F20E082580055431C /* mouseWrapper.h */,
 				9D3FF4DA20DA0622006A5F8A /* puzzles */,
 				9D3FF4AD20DA05C2006A5F8A /* make */,
 				9D3FF4BE20DA05C2006A5F8A /* Supporting Files */,
@@ -227,6 +234,7 @@
 				9D3FF4D920DA05F3006A5F8A /* Makefile in Sources */,
 				9D3FF4D620DA05F3006A5F8A /* main.c in Sources */,
 				9D3FF4D820DA05F3006A5F8A /* game.c in Sources */,
+				9D3B394020E082580055431C /* mouseWrapper.c in Sources */,
 				9D3FF4D720DA05F3006A5F8A /* ui.c in Sources */,
 				9D3FF4D520DA05F3006A5F8A /* puzzles.c in Sources */,
 			);

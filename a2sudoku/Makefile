@@ -151,7 +151,7 @@ DRIVERS += hiresgr
 
 # If you want to link the mouse driver with your executable,
 # uncomment the next line.
-#    DRIVERS += mouse
+DRIVERS += mouse
 #
 # To use the mouse driver, add code which looks like this to your
 # project:

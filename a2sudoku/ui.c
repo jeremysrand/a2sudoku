@@ -16,6 +16,7 @@
 
 #include "game.h"
 #include "ui.h"
+#include "mouseWrapper.h"
 #include "drivers/a2_hires_drv.h"
 
 
@@ -118,6 +119,31 @@ void drawGrid(void)
 }
 
 
+void setCursorPos(tPos newX, tPos newY)
+{
+    tPos oldX = cursorX;
+    tPos oldY = cursorY;
+    
+    if (newX >= BOARD_SIZE)
+        newX = BOARD_SIZE - 1;
+    
+    if (newY >= BOARD_SIZE)
+        newY = BOARD_SIZE - 1;
+    
+    if ((cursorX == newX) &&
+        (cursorY == newY))
+        return;
+    
+    cursorX = newX;
+    cursorY = newY;
+    
+    refreshPos(cursorX, cursorY);
+    refreshPos(oldX, oldY);
+    
+    moveMouseToPos(cursorX, cursorY);
+}
+
+
 void initUI(void)
 {
     static bool tgi_inited = false;
@@ -131,6 +157,8 @@ void initUI(void)
     tgi_init();
     
     tgi_inited = true;
+    
+    initMouse(setCursorPos);
 }
 
 
@@ -166,6 +194,7 @@ void shutdownUI(void)
 {
     // Uninstall drivers
     tgi_uninstall();
+    shutdownMouse();
 }
 
 
@@ -269,8 +298,8 @@ void displayInstructions(void)
            "\n"
            "The goal is to get the numbers from 1 to"
            "9 uniquely in each column, row and 3x3\n"
-           "subsquare.  Move the cursor with I-J-K-L"
-           "or the arrow keys.  Press a number key\n"
+           "subsquare.  Move the cursor with arrow\n"
+           "keys, IJKM or mouse.  Press a number key"
            "to enter a value.  Press a number key\n"
            "while holding shift or open apple to\n"
            "toggle a scratch value.  Press 0 to\n"
@@ -592,191 +621,180 @@ bool playGame(void)
     graphicsMode();
     
     while (true) {
-        bool shouldNotBeep = true;
+        pollMouse();
         
-        if (isPuzzleSolved()) {
-            youWon();
-            return true;
-        }
-        
-        ch = cgetc();
-        
-        switch (ch) {
-            case 'h':
-            case 'H':
-                textMode();
-                displayInstructions();
-                graphicsMode();
-                break;
-                
-            case 'o':
-            case 'O':
-                textMode();
-                if (setOptions())
-                    refreshAllPos();
-                graphicsMode();
-                break;
-                
-            case 'r':
-            case 'R':
-                shouldSave = false;
-                restartGame();
-                break;
-                
-            case 'n':
-            case 'N':
+        if (kbhit()) {
+            bool shouldNotBeep = true;
+            ch = cgetc();
+            
+            switch (ch) {
+                case 'h':
+                case 'H':
+                    textMode();
+                    displayInstructions();
+                    graphicsMode();
+                    break;
+                    
+                case 'o':
+                case 'O':
+                    textMode();
+                    if (setOptions())
+                        refreshAllPos();
+                    graphicsMode();
+                    break;
+                    
+                case 'r':
+                case 'R':
+                    shouldSave = false;
+                    restartGame();
+                    break;
+                    
+                case 'n':
+                case 'N':
+                    return true;
+                    
+                case 'q':
+                case 'Q':
+                case CH_ESC:
+                    shutdownUI();
+                    if (shouldSave) {
+                        clrscr();
+                        printf("\n\nSaving your puzzle so you can continue\n    later...");
+                        saveGame();
+                    }
+                    return false;
+                    
+                case 'i':
+                case 'I':
+                case 0x0B:  // Only defined with apple2enh targts, CH_CURS_UP:
+                    if (cursorY != 0) {
+                        setCursorPos(cursorX, cursorY - 1);
+                    } else {
+                        setCursorPos(cursorX, BOARD_SIZE - 1);
+                    }
+                    break;
+                    
+                case 'j':
+                case 'J':
+                case CH_CURS_LEFT:
+                    if (cursorX != 0) {
+                        setCursorPos(cursorX - 1, cursorY);
+                    } else {
+                        setCursorPos(BOARD_SIZE - 1, cursorY);
+                    }
+                    break;
+                    
+                case 'k':
+                case 'K':
+                case CH_CURS_RIGHT:
+                    if (cursorX < BOARD_SIZE - 1) {
+                        setCursorPos(cursorX + 1, cursorY);
+                    } else {
+                        setCursorPos(0, cursorY);
+                    }
+                    break;
+                    
+                case 'm':
+                case 'M':
+                case 0x0A:  // Only defined with apple2enh targts, CH_CURS_DOWN:
+                    if (cursorY < BOARD_SIZE - 1) {
+                        setCursorPos(cursorX, cursorY + 1);
+                    } else {
+                        setCursorPos(cursorX, 0);
+                    }
+                    break;
+                    
+                case '0':
+                case '1':
+                case '2':
+                case '3':
+                case '4':
+                case '5':
+                case '6':
+                case '7':
+                case '8':
+                case '9':
+                    if (*button0 > 127)
+                        shouldNotBeep = toggleScratchValueAtPos(cursorX, cursorY, ch - '0');
+                    else
+                        shouldNotBeep = setValueAtPos(cursorX, cursorY, ch - '0');
+                    if (shouldNotBeep)
+                        shouldSave = true;
+                    break;
+                    
+                case '!':
+                    shouldNotBeep = toggleScratchValueAtPos(cursorX, cursorY, 1);
+                    if (shouldNotBeep)
+                        shouldSave = true;
+                    break;
+                    
+                case '@':
+                    shouldNotBeep = toggleScratchValueAtPos(cursorX, cursorY, 2);
+                    if (shouldNotBeep)
+                        shouldSave = true;
+                    break;
+                    
+                case '#':
+                    shouldNotBeep = toggleScratchValueAtPos(cursorX, cursorY, 3);
+                    if (shouldNotBeep)
+                        shouldSave = true;
+                    break;
+                    
+                case '$':
+                    shouldNotBeep = toggleScratchValueAtPos(cursorX, cursorY, 4);
+                    if (shouldNotBeep)
+                        shouldSave = true;
+                    break;
+                    
+                case '%':
+                    shouldNotBeep = toggleScratchValueAtPos(cursorX, cursorY, 5);
+                    if (shouldNotBeep)
+                        shouldSave = true;
+                    break;
+                    
+                case '^':
+                    shouldNotBeep = toggleScratchValueAtPos(cursorX, cursorY, 6);
+                    if (shouldNotBeep)
+                        shouldSave = true;
+                    break;
+                    
+                case '&':
+                    shouldNotBeep = toggleScratchValueAtPos(cursorX, cursorY, 7);
+                    if (shouldNotBeep)
+                        shouldSave = true;
+                    break;
+                    
+                case '*':
+                    shouldNotBeep = toggleScratchValueAtPos(cursorX, cursorY, 8);
+                    if (shouldNotBeep)
+                        shouldSave = true;
+                    break;
+                    
+                case '(':
+                    shouldNotBeep = toggleScratchValueAtPos(cursorX, cursorY, 9);
+                    if (shouldNotBeep)
+                        shouldSave = true;
+                    break;
+                    
+                case 'u':
+                case 'U':
+                    shouldNotBeep = undoLastMove();
+                    break;
+                    
+                default:
+                    shouldNotBeep = false;
+                    break;
+            }
+            
+            if (!shouldNotBeep) {
+                printf("\007");
+            }
+            
+            if (isPuzzleSolved()) {
+                youWon();
                 return true;
-                
-            case 'q':
-            case 'Q':
-            case CH_ESC:
-                shutdownUI();
-                if (shouldSave) {
-                    clrscr();
-                    printf("\n\nSaving your puzzle so you can continue\n    later...");
-                    saveGame();
-                }
-                return false;
-                
-            case 'i':
-            case 'I':
-            case 0x0B:  // Only defined with apple2enh targts, CH_CURS_UP:
-                if (cursorY != 0) {
-                    cursorY--;
-                    refreshPos(cursorX, cursorY);
-                    refreshPos(cursorX, cursorY + 1);
-                } else {
-                    cursorY = BOARD_SIZE - 1;
-                    refreshPos(cursorX, cursorY);
-                    refreshPos(cursorX, 0);
-                }
-                break;
-                
-            case 'j':
-            case 'J':
-            case CH_CURS_LEFT:
-                if (cursorX != 0) {
-                    cursorX--;
-                    refreshPos(cursorX, cursorY);
-                    refreshPos(cursorX + 1, cursorY);
-                } else {
-                    cursorX = BOARD_SIZE - 1;
-                    refreshPos(cursorX, cursorY);
-                    refreshPos(0, cursorY);
-                }
-                break;
-                
-            case 'k':
-            case 'K':
-            case CH_CURS_RIGHT:
-                if (cursorX < BOARD_SIZE - 1) {
-                    cursorX++;
-                    refreshPos(cursorX, cursorY);
-                    refreshPos(cursorX - 1, cursorY);
-                } else {
-                    cursorX = 0;
-                    refreshPos(cursorX, cursorY);
-                    refreshPos(BOARD_SIZE - 1, cursorY);
-                }
-                break;
-                
-            case 'm':
-            case 'M':
-            case 0x0A:  // Only defined with apple2enh targts, CH_CURS_DOWN:
-                if (cursorY < BOARD_SIZE - 1) {
-                    cursorY++;
-                    refreshPos(cursorX, cursorY);
-                    refreshPos(cursorX, cursorY - 1);
-                } else {
-                    cursorY = 0;
-                    refreshPos(cursorX, cursorY);
-                    refreshPos(cursorX, BOARD_SIZE - 1);
-                }
-                break;
-                
-            case '0':
-            case '1':
-            case '2':
-            case '3':
-            case '4':
-            case '5':
-            case '6':
-            case '7':
-            case '8':
-            case '9':
-                if (*button0 > 127)
-                    shouldNotBeep = toggleScratchValueAtPos(cursorX, cursorY, ch - '0');
-                else
-                    shouldNotBeep = setValueAtPos(cursorX, cursorY, ch - '0');
-                if (shouldNotBeep)
-                    shouldSave = true;
-                break;
-                
-            case '!':
-                shouldNotBeep = toggleScratchValueAtPos(cursorX, cursorY, 1);
-                if (shouldNotBeep)
-                    shouldSave = true;
-                break;
-                
-            case '@':
-                shouldNotBeep = toggleScratchValueAtPos(cursorX, cursorY, 2);
-                if (shouldNotBeep)
-                    shouldSave = true;
-                break;
-                
-            case '#':
-                shouldNotBeep = toggleScratchValueAtPos(cursorX, cursorY, 3);
-                if (shouldNotBeep)
-                    shouldSave = true;
-                break;
-                
-            case '$':
-                shouldNotBeep = toggleScratchValueAtPos(cursorX, cursorY, 4);
-                if (shouldNotBeep)
-                    shouldSave = true;
-                break;
-                
-            case '%':
-                shouldNotBeep = toggleScratchValueAtPos(cursorX, cursorY, 5);
-                if (shouldNotBeep)
-                    shouldSave = true;
-                break;
-                
-            case '^':
-                shouldNotBeep = toggleScratchValueAtPos(cursorX, cursorY, 6);
-                if (shouldNotBeep)
-                    shouldSave = true;
-                break;
-                
-            case '&':
-                shouldNotBeep = toggleScratchValueAtPos(cursorX, cursorY, 7);
-                if (shouldNotBeep)
-                    shouldSave = true;
-                break;
-                
-            case '*':
-                shouldNotBeep = toggleScratchValueAtPos(cursorX, cursorY, 8);
-                if (shouldNotBeep)
-                    shouldSave = true;
-                break;
-                
-            case '(':
-                shouldNotBeep = toggleScratchValueAtPos(cursorX, cursorY, 9);
-                if (shouldNotBeep)
-                    shouldSave = true;
-                break;
-                
-            case 'u':
-            case 'U':
-                shouldNotBeep = undoLastMove();
-                break;
-                
-            default:
-                shouldNotBeep = false;
-                break;
-        }
-        if (!shouldNotBeep) {
-            printf("\007");
+            }
+            
         }
     }
     
