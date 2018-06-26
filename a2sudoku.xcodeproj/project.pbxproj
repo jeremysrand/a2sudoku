@@ -70,6 +70,7 @@
 		9D3FF4D220DA05F3006A5F8A /* game.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = game.h; sourceTree = "<group>"; };
 		9D3FF4D320DA05F3006A5F8A /* Makefile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
 		9D3FF4D420DA05F3006A5F8A /* ui.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ui.h; sourceTree = "<group>"; };
+		9D45ABB320E1E3A5008C3F16 /* errorFilter.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; name = errorFilter.sh; path = make/errorFilter.sh; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -128,6 +129,7 @@
 				9D3FF4B020DA05C2006A5F8A /* createDiskImage */,
 				9D3FF4B220DA05C2006A5F8A /* DevApple.vii */,
 				9D3FF4B420DA05C2006A5F8A /* dos33_template.dsk */,
+				9D45ABB320E1E3A5008C3F16 /* errorFilter.sh */,
 				9D3FF4B620DA05C2006A5F8A /* head.mk */,
 				9D3FF4B820DA05C2006A5F8A /* prodos_template.dsk */,
 				9D3FF4BA20DA05C2006A5F8A /* tail.mk */,
