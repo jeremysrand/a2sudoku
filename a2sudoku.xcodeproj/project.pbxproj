@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9D3A3E882178322500BE74C7 /* bastokenizer-tools-bt-0.2.0.jar in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D3A3E862178322500BE74C7 /* bastokenizer-tools-bt-0.2.0.jar */; };
 		9D3B394020E082580055431C /* mouseWrapper.c in Sources */ = {isa = PBXBuildFile; fileRef = 9D3B393E20E082580055431C /* mouseWrapper.c */; };
 		9D3FF4AF20DA05C2006A5F8A /* AppleCommander.jar in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D3FF4AE20DA05C2006A5F8A /* AppleCommander.jar */; };
 		9D3FF4B120DA05C2006A5F8A /* createDiskImage in CopyFiles */ = {isa = PBXBuildFile; fileRef = 9D3FF4B020DA05C2006A5F8A /* createDiskImage */; };
@@ -45,6 +46,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		9D3A3E862178322500BE74C7 /* bastokenizer-tools-bt-0.2.0.jar */ = {isa = PBXFileReference; lastKnownFileType = archive.jar; name = "bastokenizer-tools-bt-0.2.0.jar"; path = "make/bastokenizer-tools-bt-0.2.0.jar"; sourceTree = "<group>"; };
+		9D3A3E872178322500BE74C7 /* bt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; name = bt; path = make/bt; sourceTree = "<group>"; };
 		9D3B393D20E0821B0055431C /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		9D3B393E20E082580055431C /* mouseWrapper.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = mouseWrapper.c; sourceTree = "<group>"; };
 		9D3B393F20E082580055431C /* mouseWrapper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = mouseWrapper.h; sourceTree = "<group>"; };
@@ -79,6 +82,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9D3FF4AF20DA05C2006A5F8A /* AppleCommander.jar in Frameworks */,
+				9D3A3E882178322500BE74C7 /* bastokenizer-tools-bt-0.2.0.jar in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -126,6 +130,8 @@
 			isa = PBXGroup;
 			children = (
 				9D3FF4AE20DA05C2006A5F8A /* AppleCommander.jar */,
+				9D3A3E862178322500BE74C7 /* bastokenizer-tools-bt-0.2.0.jar */,
+				9D3A3E872178322500BE74C7 /* bt */,
 				9D3FF4B020DA05C2006A5F8A /* createDiskImage */,
 				9D3FF4B220DA05C2006A5F8A /* DevApple.vii */,
 				9D3FF4B420DA05C2006A5F8A /* dos33_template.dsk */,
