@@ -39,7 +39,7 @@ PROJECT_TYPE = cc65
 
 # Uncomment and set this to your starting address in Apple II memory
 # if necessary:
-START_ADDR = 4000
+#    START_ADDR = 4000
 
 # Set the default CPU to assemble for.  You can change this in the
 # body of a .s file using control commands like ".PC02".  Uncomment
@@ -70,7 +70,7 @@ SRCDIRS+=
 
 # If you want to add arguments to the compile commandline, add them
 # to this variable:
-#    CFLAGS += -Os
+CFLAGS += -Os
 
 # If you want to add arguments to the assembly commandline, add them
 # to this variable:

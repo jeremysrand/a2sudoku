@@ -59,7 +59,7 @@ ifeq ($(BUILD_TYPE),cc65)
                 MACHCONFIG += -C $(BASE_MACHINE)-asm.cfg
                 LDFLAGS += -u __EXEHDR__
             else
-                MACHCONFIG += -C $(BASE_MACHINE).cfg
+                MACHCONFIG += -C apple2-hgr.cfg
             endif
          endif
     endif

@@ -12,13 +12,13 @@
 #include <stdlib.h>
 #include <string.h>
 #include <tgi.h>
-#include <tgi/tgi-mode.h>
 
 #include "game.h"
 #include "ui.h"
 #include "mouseWrapper.h"
 #include "drivers/a2_hires_drv.h"
 
+#pragma code-name ("LOWCODE")
 
 // Macros and defines
 #define SQUARE_WIDTH 28
@@ -29,10 +29,10 @@
 #define THICK_LINE_HEIGHT 3
 #define THIN_LINE_HEIGHT 1
 
-#define TEXT_OFFSET_X 12
+#define TEXT_OFFSET_X 19
 #define TEXT_OFFSET_Y 6
 
-#define TEXT_UNDERLINE_OFFSET_X -2
+#define TEXT_UNDERLINE_OFFSET_X -9
 #define TEXT_UNDERLINE_OFFSET_Y 9
 #define TEXT_UNDERLINE_WIDTH 8
 
@@ -92,7 +92,7 @@ void drawGrid(void)
 
     tgi_clear();
     
-    tgi_setcolor(COLOR_WHITE);
+    tgi_setcolor(TGI_COLOR_WHITE);
     for (pos = 0; pos <= BOARD_SIZE; pos++) {
         if ((pos % SUBSQUARE_SIZE) == 0) {
             tgi_bar(xPos, 0, xPos + THICK_LINE_WIDTH - 1, TOTAL_HEIGHT - 1);
@@ -469,7 +469,7 @@ void drawScratch(tPos x, tPos y, tScratchValues scratch)
         drawNine(screenX, screenY);
     }
     
-    tgi_setcolor(COLOR_WHITE);
+    tgi_setcolor(TGI_COLOR_WHITE);
 }
 
 
@@ -481,10 +481,10 @@ void updatePos(tPos x, tPos y, tSquareVal val, tScratchValues scratch, bool corr
     int edgeY = screenY + SQUARE_HEIGHT - 1;
     char buffer[2];
     
-    tgi_setcolor(COLOR_BLACK);
+    tgi_setcolor(TGI_COLOR_BLACK);
     tgi_bar(screenX, screenY, edgeX, edgeY);
     
-    tgi_setcolor(COLOR_WHITE);
+    tgi_setcolor(TGI_COLOR_WHITE);
     if (val != EMPTY_SQUARE) {
         buffer[0] = '0' + val;
         buffer[1] = '\0';
@@ -530,7 +530,7 @@ void youWon(void)
     static char line1[80];
     char *line2 = "Press any key";
     time_t solutionTime = timeToSolve();
-    int textHeight = tgi_textheight(line1);
+    int textHeight = 7;
     
     if (solutionTime == 0xffffffff) {
         snprintf(line1, sizeof(line1), "You solved it!");
@@ -550,10 +550,10 @@ void youWon(void)
     wonX = (TOTAL_WIDTH - wonWidth) / 2;
     wonY = (TOTAL_HEIGHT - wonHeight) / 2;
     
-    tgi_setcolor(COLOR_BLACK);
+    tgi_setcolor(TGI_COLOR_BLACK);
     tgi_bar(wonX, wonY, wonX + wonWidth, wonY + wonHeight);
     
-    tgi_setcolor(COLOR_WHITE);
+    tgi_setcolor(TGI_COLOR_WHITE);
     tgi_outtextxy((TOTAL_WIDTH - line1Width) / 2, wonY + (textHeight * 2), line1);
     tgi_outtextxy((TOTAL_WIDTH - line2Width) / 2, wonY + (textHeight * 4), line2);
     
@@ -794,7 +794,6 @@ bool playGame(void)
                 youWon();
                 return true;
             }
-            
         }
     }
     
