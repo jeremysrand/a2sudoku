@@ -201,13 +201,13 @@ void shutdownUI(void)
 void textMode(void)
 {
     clrscr();
-    asm ("STA %w", 0xc051);
+    asm volatile ("STA %w", 0xc051);
 }
 
 
 void graphicsMode(void)
 {
-    asm ("STA %w", 0xc050);
+    asm volatile ("STA %w", 0xc050);
 }
 
 

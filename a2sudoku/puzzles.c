@@ -50,7 +50,7 @@ tPuzzle thePuzzle;
 void fileReadProblem(char *filename)
 {
     clrscr();
-    asm ("STA %w", 0xc051);
+    asm volatile ("STA %w", 0xc051);
     printf("\n\nUnable to read file %s\nPress any key to quit", filename);
     cgetc();
     exit(0);
