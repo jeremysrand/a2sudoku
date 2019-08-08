@@ -39,7 +39,7 @@ PROJECT_TYPE = cc65
 
 # Uncomment and set this to your starting address in Apple II memory
 # if necessary:
-#    START_ADDR = 4000
+#    START_ADDR = 6000
 
 # Set the default CPU to assemble for.  You can change this in the
 # body of a .s file using control commands like ".PC02".  Uncomment
@@ -52,7 +52,8 @@ PROJECT_TYPE = cc65
 # will only produce 8-bit code.
 
 # Add any other directories where you are putting C or assembly source
-# files to this list:
+# files to this list.  Note that if you are generating source files into
+# $(GENDIR), you should add $(GENDIR) to SRCDIRS here:
 SRCDIRS+=
 
 # If you have a non-standard cc65 install, you may need to change
@@ -229,29 +230,32 @@ DRIVERS += mouse
 # If you do not provide any type information for your filenames,
 # it will be copied as a binary.
 #
-COPYDIRS=tocopy
+COPYDIRS=$(GENDIR)/tocopy
 
 # Add any rules you want to execute before any compiles or assembly
 # commands are called here, if any.  You can generate .c, .s or .h
 # files for example.  You can generate data files.  Whatever you
 # might need.
 #
+# You should generate these files in the $(GENDIR) directory or
+# within a subdirectory under $(GENDIR) which you create yourself.
+#
 # All of your commands associated with a rule _must_ start with a tab
 # character.  Xcode makes it a bit tough to type a tab character by
 # default.  Press option-tab within Xcode to insert a tab character.
-gen: genfiles
+gen: $(GENDIR)/genfiles
 
-genfiles: puzzles.txt
-	mkdir -p tocopy
-	./generateSudoku.pl puzzles.txt
-	touch genfiles
+$(GENDIR)/genfiles:
+	$(MKDIR) $(GENDIR)/tocopy
+	./generateSudoku.pl $(GENDIR)/tocopy puzzles.txt
+	touch $(GENDIR)/genfiles
 
 # For any files you generated in the gen target above, you should
 # add rules in genclean to remove those generated files when you
 # clean your build.
 genclean:
-	rm -rf tocopy
-	rm -f genfiles
+	rm -rf $(GENDIR)/tocopy
+	rm -f $(GENDIR)/genfiles
 
 # Do not change anything else below here...
 include make/tail.mk

@@ -104,6 +104,7 @@ sub generatePuzzle
     return $result;
 }
 
+my $destdir=shift;
 
 while (<>) {
     chomp;
@@ -124,17 +125,17 @@ while (<>) {
     }
 }
 
-open(FILE, ">tocopy/easy.puzzles.bin") || die "Unable to open easy.puzzles.bin";
+open(FILE, ">$destdir/easy.puzzles.bin") || die "Unable to open easy.puzzles.bin";
 print FILE pack("v", $#easy + 1);
 print FILE join("", @easy);
 close (FILE);
 
-open(FILE, ">tocopy/medium.puzzles.bin") || die "Unable to open medium.puzzles.bin";
+open(FILE, ">$destdir/medium.puzzles.bin") || die "Unable to open medium.puzzles.bin";
 print FILE pack("v", $#medium + 1);
 print FILE join("", @medium);
 close (FILE);
 
-open(FILE, ">tocopy/hard.puzzles.bin") || die "Unable to open hard.puzzles.bin";
+open(FILE, ">$destdir/hard.puzzles.bin") || die "Unable to open hard.puzzles.bin";
 print FILE pack("v", $#hard + 1);
 print FILE join("", @hard);
 close (FILE);
